@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="stylesheet" href="menu.css">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <header>
+        <h1>FiLaro</h1>
+    </header>
+    <main>
+        <section class="game-modes">
+            <div class="game-mode">
+                <h2>SaliScramble</h2>
+                <p>Unscramble niche pinoy words.</p>
+                <a href="saliScramble.html">Play</a>
+            </div>
+            <div class="game-mode">
+                <h2>WikaBlanks</h2>
+                <p>Use the correct word for the sentences.</p>
+                <a href="wikaBlanks.html">Play</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Group 3.</p>
+    </footer>
+    <script>
+        // Check if service workers are supported
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

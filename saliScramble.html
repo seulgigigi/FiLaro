@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaliScramble</title>
+    <link rel="stylesheet" href="saliScramble.css">
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SaliScramble</h1>
+        </header>
+        <div id="white">
+            <h5>WAZAAAAA</h5>
+            
+        </div>
+        <button id="startGame">Start</button>
+        <div id="game" class="hidden">
+            <p id="roundDisplay">0/20</p> <!-- Round progress display -->
+            <p id="definition"></p> 
+            <p id="scrambledWord"></p>
+            <input type="text" id="userGuess" placeholder="...">
+            <button id="submitGuess">Submit</button>
+            <div id="result"></div>
+        </div>
+        <button id="nextWord" class="hidden">Salita</button>
+        <!-- Back to Main Menu button -->
+        <a href="index.html" class="back-button">Main Menu</a>
+    </div>
+    
+    <script src="saliScramble.js"></script>
+</body>
+</html>

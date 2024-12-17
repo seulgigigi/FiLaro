@@ -1,0 +1,227 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, a, button, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    background-color: #f2f2f2;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.white {
+    margin-top: 5em;
+    size: 10em;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-weight: bolder;
+    position: fixed; /* Fixed at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+header p {
+    font-size: 18px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.toggle-button {
+    background-color: #6c757d;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-button:hover {
+    background-color: #5a6268;
+}
+
+#game {
+    margin-top: 100px; /* Add margin to avoid overlapping with the header */
+}
+
+#roundDisplay {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#definition {
+    background-color: #fff; /* White background */
+    border: 2px solid #333; /* Black border */
+    border-radius: 10px;
+    font-size: 1.5em;
+    color: #333;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#scrambledWord {
+    font-size: 2em;
+    font-weight: bold;
+    background-color: #fff; /* White background */
+    border: 2px solid #333; /* Black border */
+    border-radius: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #333;
+    padding: 10px;
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    font-size: 1.125em;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+    border: 2px solid #333; /* Black border */
+    border-radius: 5px;
+    background-color: #fff; /* White background */
+    color: #333;
+    text-transform: uppercase;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #6aaa64;
+}
+
+.guess-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Smaller gap between letter boxes */
+    margin: 20px 0;
+}
+
+.letter-box {
+    width: 60px; /* Larger size */
+    height: 60px; /* Larger size */
+    text-align: center;
+    line-height: 60px; /* Adjust line-height to match height */
+    font-size: 1.5em; /* Larger font size */
+    font-weight: bold;
+    border: 2px solid #333; /* Black border */
+    border-radius: 5px;
+    background-color: #fff; /* White background */
+    color: #333;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.letter-box.correct {
+    background-color: #6aaa64;
+}
+
+.letter-box.wrong-position {
+    background-color: #c9b458;
+}
+
+.letter-box.wrong {
+    background-color: #3a3a3c;
+}
+
+#result {
+    margin-top: 20px;
+    margin-bottom: 32px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#result span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#nextWord {
+    display: none !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.back-button{
+    font-family: sans-serif;
+    color: #007bff;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .container{
+        width: 75%;
+    }
+    .letter-box {
+        width: 50px; /* Slightly smaller on smaller screens */
+        height: 50px;
+        line-height: 50px;
+        font-size: 1.2em;
+    }
+}
+
+@keyframes flip-in {
+    0% {
+        transform: rotateX(90deg);
+        background-color: transparent;
+        color: transparent;
+    }
+    50% {
+        background-color: #fff;
+    }
+    100% {
+        transform: rotateX(0deg);
+        background-color: inherit;
+        color: inherit;
+    }
+}
+
+.flip-in {
+    animation: flip-in 0.6s ease-in-out;
+}
