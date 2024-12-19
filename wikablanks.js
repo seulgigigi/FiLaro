@@ -17,7 +17,13 @@ const sentences = [
         correctAnswer: "Lumagapak", // Label the correct answer here
         choices: ["Sinisikil", "Lumagapak", "Pusil", "Masusupil"],
         definition: "Nahulog o bumagsak, lalo na mula sa isang mataas na lugar o posisyon."
-    }
+    },
+    {
+        sentence: "<span class='blank'>_____</span> si Simoun sa gitna ng sala, sugatang-sugata.",
+        correctAnswer: "Lumagapak", // Label the correct answer here
+        choices: ["Sinisikil", "Lumagapak", "Pusil", "Masusupil"],
+        definition: "Nahulog o bumagsak, lalo na mula sa isang mataas na lugar o posisyon."
+    },
     // Add more sentences here...
 ];
 
@@ -46,6 +52,11 @@ function displaySentence() {
 
     // Update the progress counter
     document.getElementById('progress-counter').textContent = `${currentSentenceIndex + 1}/${sentences.length}`;
+
+    // Enable all choice buttons
+    document.querySelectorAll('.choice').forEach(button => {
+        button.disabled = false;
+    });
 }
 
 // Function to check the answer
@@ -53,6 +64,11 @@ function checkAnswer(choice) {
     const sentence = sentences[currentSentenceIndex];
     const resultText = document.getElementById('result-text');
     const result = document.getElementById('result');
+
+    // Disable all choice buttons to prevent further clicks
+    document.querySelectorAll('.choice').forEach(button => {
+        button.disabled = true;
+    });
 
     if (choice === sentence.correctAnswer) {
         // Increment the correct answers counter
@@ -63,14 +79,19 @@ function checkAnswer(choice) {
         document.querySelector('.sentence').innerHTML = completeSentence;
 
         // Display the definition
-        resultText.innerHTML = `Correct! The word "${sentence.correctAnswer}" means: <br><strong>${sentence.definition}</strong>`;
-        resultText.style.color = "#6aaa64";
-        document.getElementById('next-sentence').classList.remove('hidden');
+        resultText.innerHTML = `<span class="correct-indicator">Correct!</span> The word "${sentence.correctAnswer}" means: <br><strong class="definition">${sentence.definition}</strong>`;
+        resultText.classList.add('correct');
     } else {
-        resultText.textContent = "Wrong! Try again.";
-        resultText.style.color = "#ff4d4d";
+        // Replace the blank with the correct word
+        const completeSentence = sentence.sentence.replace("<span class='blank'>_____</span>", `<span class='correct-word'>${sentence.correctAnswer}</span>`);
+        document.querySelector('.sentence').innerHTML = completeSentence;
+
+        resultText.innerHTML = `<span class="wrong-indicator">Wrong!</span> The correct word is "${sentence.correctAnswer}" which means: <br><strong class="definition">${sentence.definition}</strong>`;
+        resultText.classList.add('wrong');
     }
 
+    // Show the "Next Word" button
+    document.getElementById('next-sentence').classList.remove('hidden');
     result.classList.remove('hidden');
 }
 

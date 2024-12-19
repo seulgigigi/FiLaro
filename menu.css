@@ -1,4 +1,17 @@
 /* Reset some default styles */
+/* Prevent horizontal overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/* Ensure all elements fit within the viewport */
+body {
+    width: 100%;
+    max-width: 100vw; /* Ensure the body doesn't exceed the viewport width */
+}
+
 body, h1, h2, h3, p, a {
     margin: 0;
     padding: 0;
@@ -17,10 +30,11 @@ body {
 }
 
 header {
+    display: flex;
+    align-items: center;
     background-color: #333;
     color: #fff;
     padding: 10px;
-    text-align: center;
     width: 100%;
     margin-bottom: 10px;
     font-family: sans-serif;
@@ -28,6 +42,7 @@ header {
 }
 
 header h1 {
+    margin-right: 10px; /* Space between logo and title */
     font-size: 24px;
     margin-bottom: 10px;
     font-weight: bolder;
@@ -35,6 +50,17 @@ header h1 {
 
 header p {
     font-size: 18px;
+}
+
+.logo-container {
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.logo {
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+    border-radius: 50%; /* Makes the logo circular */
+    object-fit: cover; /* Ensures the logo fits the container */
 }
 
 main {
@@ -94,6 +120,20 @@ main {
     text-decoration: underline;
 }
 
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.image-container img {
+    width: 70px; /* Adjust size as needed */
+    height: 70px;
+    border-radius: 50%; /* Makes the images circular */
+    object-fit: cover; /* Ensures the image fits the container */
+}
+
 footer {
     background-color: #333;
     color: #fff;
@@ -103,6 +143,29 @@ footer {
     margin-top: auto; /* Push the footer to the bottom */
 }
 
+.laro{
+    font-size: 14px !important;
+    font-weight: bolder;
+}
+
+/* Minimalistic Scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker color on hover */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .game-modes {
@@ -110,6 +173,10 @@ footer {
     }
 
     .game-mode {
-        width: 70%; /* Adjust width for smaller screens */
+        width: 80%; /* Adjust width for smaller screens */
+    }
+
+    .laro{
+        padding-top: -1em;
     }
 }

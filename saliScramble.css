@@ -1,4 +1,17 @@
 /* Reset some default styles */
+/* Prevent horizontal overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/* Ensure all elements fit within the viewport */
+body {
+    width: 100%;
+    max-width: 100vw; /* Ensure the body doesn't exceed the viewport width */
+}
+
 body, h1, h2, h3, p, a, button, input {
     margin: 0;
     padding: 0;
@@ -9,7 +22,7 @@ body {
     font-family: sans-serif;
     line-height: 1.6;
     background-color: #f2f2f2;
-    color: #333;
+    color: #383838; /* Logo's dark gray color */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,32 +42,41 @@ body {
 }
 
 header {
-    background-color: #333;
+    display: flex;
+    align-items: center;
+    background-color: #333; /* Logo's blue color */
     color: #fff;
     padding: 10px;
-    text-align: center;
     width: 100%;
     margin-bottom: 10px;
     font-family: sans-serif;
     font-weight: bolder;
-    position: fixed; /* Fixed at the top */
-    top: 0;
-    left: 0;
-    z-index: 1000;
 }
 
 header h1 {
+    margin-right: 10px; /* Space between logo and title */
     font-size: 24px;
     margin-bottom: 10px;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 header p {
     font-size: 18px;
 }
 
+.logo-container {
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.logo {
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+    border-radius: 50%; /* Makes the logo circular */
+    object-fit: cover; /* Ensures the logo fits the container */
+}
+
 button {
-    background-color: #007bff;
+    background-color: #ef6589; /* Logo's pink color */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -62,11 +84,12 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin: 10px 0;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #d64c75; /* Slightly darker pink on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 .toggle-button {
@@ -95,10 +118,10 @@ button:hover {
 
 #definition {
     background-color: #fff; /* White background */
-    border: 2px solid #333; /* Black border */
+    border: 2px solid #004aad; /* Logo's blue color */
     border-radius: 10px;
     font-size: 1.5em;
-    color: #333;
+    color: #383838; /* Logo's dark gray color */
     padding: 10px;
     margin: 10px 0;
 }
@@ -107,11 +130,11 @@ button:hover {
     font-size: 2em;
     font-weight: bold;
     background-color: #fff; /* White background */
-    border: 2px solid #333; /* Black border */
+    border: 2px solid #004aad; /* Logo's blue color */
     border-radius: 10px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #333;
+    color: #383838; /* Logo's dark gray color */
     padding: 10px;
     margin: 20px 0;
 }
@@ -122,16 +145,16 @@ input[type="text"] {
     padding: 10px;
     width: 80%;
     margin-bottom: 20px;
-    border: 2px solid #333; /* Black border */
+    border: 2px solid #004aad; /* Logo's blue color */
     border-radius: 5px;
     background-color: #fff; /* White background */
-    color: #333;
+    color: #383838; /* Logo's dark gray color */
     text-transform: uppercase;
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #6aaa64;
+    border-color: #ef6589; /* Logo's pink color */
 }
 
 .guess-row {
@@ -148,10 +171,10 @@ input[type="text"]:focus {
     line-height: 60px; /* Adjust line-height to match height */
     font-size: 1.5em; /* Larger font size */
     font-weight: bold;
-    border: 2px solid #333; /* Black border */
+    border: 2px solid #004aad; /* Logo's blue color */
     border-radius: 5px;
     background-color: #fff; /* White background */
-    color: #333;
+    color: #383838; /* Logo's dark gray color */
     transition: background-color 0.3s, transform 0.2s;
 }
 
@@ -190,8 +213,26 @@ input[type="text"]:focus {
 
 .back-button{
     font-family: sans-serif;
-    color: #007bff;
+    color: #ef6589; /* Logo's pink color */
     text-decoration: none;
+}
+
+/* Minimalistic Scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker color on hover */
 }
 
 @media (max-width: 768px) {
