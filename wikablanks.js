@@ -253,6 +253,7 @@ document.getElementById('next-sentence').addEventListener('click', () => {
 });
 
 // Function to check the answer
+// Function to check the answer
 function checkAnswer(choice) {
     const sentence = sentences[currentSentenceIndex];
     const resultText = document.getElementById('result-text');
@@ -286,26 +287,12 @@ function checkAnswer(choice) {
     // Show the "Next Word" button
     document.getElementById('next-sentence').classList.remove('hidden');
     result.classList.remove('hidden');
-}
 
+}
 // Event listeners for choices
 document.getElementById('choice1').addEventListener('click', () => checkAnswer(document.getElementById('choice1').textContent));
 document.getElementById('choice2').addEventListener('click', () => checkAnswer(document.getElementById('choice2').textContent));
 document.getElementById('choice3').addEventListener('click', () => checkAnswer(document.getElementById('choice3').textContent));
 document.getElementById('choice4').addEventListener('click', () => checkAnswer(document.getElementById('choice4').textContent));
-
-// Event listener for next sentence
-document.getElementById('next-sentence').addEventListener('click', () => {
-    currentSentenceIndex++;
-    if (currentSentenceIndex < 20) { // Limit the game to 20 questions
-        displaySentence();
-        document.getElementById('result').classList.add('hidden');
-        document.getElementById('next-sentence').classList.add('hidden');
-    } else {
-        // Display final score when all sentences are completed
-        alert(`You've completed all the sentences! Your score: ${correctAnswers}/20`);
-    }
-});
-
 // Initialize the game
 displaySentence();

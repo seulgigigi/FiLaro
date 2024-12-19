@@ -66,13 +66,14 @@ header p {
 }
 
 .logo-container {
+    margin-left: 20px;
     margin-right: 10px; /* Space between logo and title */
 }
 
 .logo {
     width: 40px; /* Adjust size as needed */
     height: 40px;
-    border-radius: 50%; /* Makes the logo circular */
+    border-radius: 5%; /* Makes the logo circular */
     object-fit: cover; /* Ensures the logo fits the container */
 }
 
@@ -311,7 +312,7 @@ footer {
 
 @media (max-width: 768px) {
     .container{
-        width: 75%;
+        width: 95%;
     }
     .letter-box {
         width: 50px; /* Slightly smaller on smaller screens */

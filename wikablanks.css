@@ -55,13 +55,14 @@ header p {
 }
 
 .logo-container {
+    margin-left: 20px;
     margin-right: 10px; /* Space between logo and title */
 }
 
 .logo {
     width: 40px; /* Adjust size as needed */
     height: 40px;
-    border-radius: 50%; /* Makes the logo circular */
+    border-radius: 5%; /* Makes the logo circular */
     object-fit: cover; /* Ensures the logo fits the container */
     transition: transform 0.3s ease; /* Smooth transition */
 }
@@ -203,8 +204,11 @@ main {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin: 10px 0;
+    margin: 10px auto;
     transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition */
+    text-align: center; /* Center the text */
 }
 
 #next-sentence:hover {
@@ -225,7 +229,8 @@ footer {
     transition: color 0.3s ease; /* Smooth transition */
     display: block; /* Make it a block element */
     text-align: center; /* Center the text */
-    margin: 20px auto; /* Add margin and center horizontally */
+    margin: 0px auto; /* Add margin and center horizontally */
+    margin-top: 20px;
 }
 
 .back-button:hover {
@@ -263,7 +268,7 @@ footer {
     .game-container {
         margin-top: -100px;
         margin-bottom: 200px;
-        padding: 11px;
+        padding: 8px;
     }
 
     .back-button{
@@ -285,6 +290,11 @@ footer {
 
     .choices {
         grid-template-columns: 1fr;
+    }
+
+    .choice:hover {
+        background-color: #ff8031; /* Alternate logo color */
+        transform: scale(1.03); /* Scale up on hover */
     }
 
     .choice {
