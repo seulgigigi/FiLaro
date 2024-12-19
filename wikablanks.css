@@ -223,10 +223,22 @@ footer {
     color: #5e17eb; /* Logo color */
     text-decoration: none;
     transition: color 0.3s ease; /* Smooth transition */
+    display: block; /* Make it a block element */
+    text-align: center; /* Center the text */
+    margin: 20px auto; /* Add margin and center horizontally */
 }
 
 .back-button:hover {
     color: #ff8031; /* Alternate logo color */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    width: 100%;
+    margin-top: auto; /* Push the footer to the bottom */
 }
 
 /* Minimalistic Scrollbar */
@@ -255,7 +267,7 @@ footer {
     }
 
     .back-button{
-        margin-top: -90px;
+        margin-top: -40px;
     }
     #result {
         margin-top: -195px;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaliScramble</title>
-    <link rel="icon" href="/icons/ss500.png" sizes="500x500" type="image/png">
+    <link rel="icon" href="icons/ss500.png" sizes="500x500" type="image/png">
     <link rel="stylesheet" href="saliScramble.css">
     </style>
 </head>
@@ -20,15 +20,20 @@
         <div id="game" class="hidden">
             <p id="roundDisplay">0/20</p> <!-- Round progress display -->
             <p id="definition"></p> 
-            <p id="scrambledWord"></p>
-            <input type="text" id="userGuess" placeholder="...">
+            <p id="scrambledWord"></p> <!-- Scrambled word section -->
+            <p id="sentence"></p> <!-- New section for the sentence -->
+            <input type="text" id="userGuess" placeholder="..." autocomplete="off">
             <button id="submitGuess">Submit</button>
+            <button id="hintButton" class="hint-button">Hint</button>
             <div id="result"></div>
         </div>
-        <button id="nextWord" class="hidden">Salita</button>
+        <button id="nextWord" class="hidden">Next</button>
         <!-- Back to Main Menu button -->
         <a href="index.html" class="back-button">Main Menu</a>
     </div>
+    <footer>
+        <p>&copy; Group 3.</p>
+    </footer>
     
     <script src="saliScramble.js"></script>
 </body>

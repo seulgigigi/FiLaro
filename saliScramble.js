@@ -1,68 +1,70 @@
-let word = [];
 let currentWord = '';
 let currentDefinition = '';
+let currentSentence = '';
 let scrambledWord = '';
 let attempts = 0;
 let currentRound = 0;
-const maxRounds = 20; // Maximum rounds (20 words)
+const maxRounds = 2; // Maximum rounds (20 words)
 
 // Hardcoded word list for SALITA mode
 const words = [
-    { word: "SIKLAB", definition: "Biglaang pagsiklab ng apoy o emosyon" },
-    { word: "PANTAS", definition: "Matalinong tao" },
-    { word: "DUYOG", definition: "Paglalaho ng araw o buwan" },
-    { word: "HIMIG", definition: "Melodiya o tunog" },
-    { word: "SIMSIM", definition: "Dahan-dahang pag-inom upang malasahan" },
-    { word: "LUMBAY", definition: "Malalim na kalungkutan" },
-    { word: "PINID", definition: "Pagsasara ng pintuan o bintana" },
-    { word: "BUGHAW", definition: "Kulay asul (gamit sa tula o malikhain)" },
-    { word: "WAGAS", definition: "Malinis walang kapintasan at walang hanggan" },
-    { word: "AGOS", definition: "Pagdaloy ng tubig o hangin sa isang direksyon" },
-    { word: "HAPIL", definition: "Malupit na pagkatalo" },
-    { word: "DIWA", definition: "Kaluluwa o espiritu" },
-    { word: "GUNITA", definition: "Alaala o memorya" },
-    { word: "HILOM", definition: "Tahimik na pagpapagaling" },
-    { word: "LAKIP", definition: "Kasama o kalakip" },
-    { word: "LIRIP", definition: "Unang liwanag ng umaga" },
-    { word: "LINGAP", definition: "Pag-aaruga o pag-aalaga" },
-    { word: "LUKTOS", definition: "Pagbaluktot ng papel o dahon" },
-    { word: "MUTYA", definition: "Mahalagang hiyas o perlas" },
-    { word: "PAGKIT", definition: "Pandikit o pantali" },
-    { word: "PAGOD", definition: "Kapaguran o hingal" },
-    { word: "PANATA", definition: "Pangako o sumpa" },
-    { word: "PUGAY", definition: "Paggalang o pagbati" },
-    { word: "RIKIT", definition: "Kagandahan o kariktan" },
-    { word: "SALIK", definition: "Elemento o sangkap" },
-    { word: "SINAG", definition: "Liwanag na nanggagaling sa araw" },
-    { word: "SIPING", definition: "Nasa tabi o malapit" },
-    { word: "TAGURI", definition: "Titulo o palayaw" },
-    { word: "TALA", definition: "Bituin o pangalan" },
-    { word: "TALAS", definition: "Katalasan ng isip" },
-    { word: "TALIM", definition: "Kahusayan o kasanayan" },
-    { word: "TAMPOK", definition: "Tampulan ng pansin" },
-    { word: "TAROK", definition: "Pinakamalalim na bahagi" },
-    { word: "TIMPI", definition: "Pagpipigil ng sarili" },
-    { word: "TINDIG", definition: "Tayog o anyo" },
-    { word: "TITIG", definition: "Masinsinang pagtingin" },
-    { word: "TUGDA", definition: "Patakaran o alituntunin" },
-    { word: "ULILA", definition: "Naulila o nag-iisa" },
-    { word: "UNAWA", definition: "Pag-intindi o pagkaunawa" },
-    { word: "UNLAK", definition: "Pagbibigay ng karangalan" },
-    { word: "UNOS", definition: "Malakas na bagyo" },
-    { word: "UNTAG", definition: "Unang liwanag ng araw" },
-    { word: "WAGAS", definition: "Dalisay o walang bahid" },
-    { word: "YABAG", definition: "Tunog ng yapak" }
+    { word: "SIKLAB", definition: "Biglaang pagsiklab ng apoy o emosyon", sentence: "Ang <span class='blank'>_____</span> ay nangyayari nang bigla." },
+    { word: "PANTAS", definition: "Matalinong tao", sentence: "Siya ay isang <span class='blank'>_____</span> sa kanyang klase." },
+    { word: "DUYOG", definition: "Paglalaho ng araw o buwan", sentence: "Ang <span class='blank'>_____</span> ng buwan ay nagbigay ng kasiyahan sa mga tao." },
+    { word: "HIMIG", definition: "Melodiya o tunog", sentence: "Ang <span class='blank'>_____</span> ng awit ay nakakakilig." },
+    { word: "SIMSIM", definition: "Dahan-dahang pag-inom upang malasahan", sentence: "Ang <span class='blank'>_____</span> ng tubig ay nakakapagpalain." },
+    { word: "LUMBAY", definition: "Malalim na kalungkutan", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkawala." },
+    { word: "PINID", definition: "Pagsasara ng pintuan o bintana", sentence: "Ang <span class='blank'>_____</span> ng bintana ay nagbigay ng kaginhawahan." },
+    { word: "BUGHAW", definition: "Kulay asul (gamit sa tula o malikhain)", sentence: "Ang <span class='blank'>_____</span> na langit ay napakaganda." },
+    { word: "WAGAS", definition: "Malinis walang kapintasan at walang hanggan", sentence: "Ang <span class='blank'>_____</span> na pag-ibig ay hindi madaling makuha." },
+    { word: "AGOS", definition: "Pagdaloy ng tubig o hangin sa isang direksyon", sentence: "Ang <span class='blank'>_____</span> ng ilog ay nakakapagpalain." },
+    { word: "HAPIL", definition: "Malupit na pagkatalo", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkatalo." },
+    { word: "DIWA", definition: "Kaluluwa o espiritu", sentence: "Ang <span class='blank'>_____</span> ng tao ay mahalaga." },
+    { word: "GUNITA", definition: "Alaala o memorya", sentence: "Ang <span class='blank'>_____</span> ng kanyang ama ay hindi madaling makalimutan." },
+    { word: "HILOM", definition: "Tahimik na pagpapagaling", sentence: "Ang <span class='blank'>_____</span> ng kalikasan ay nakakapagpalain." },
+    { word: "LAKIP", definition: "Kasama o kalakip", sentence: "Ang <span class='blank'>_____</span> ng mga dokumento ay mahalaga." },
+    { word: "LIRIP", definition: "Unang liwanag ng umaga", sentence: "Ang <span class='blank'>_____</span> ng araw ay nagbigay ng kasiyahan." },
+    { word: "LINGAP", definition: "Pag-aaruga o pag-aalaga", sentence: "Ang <span class='blank'>_____</span> ng mga magulang ay hindi madaling makuha." },
+    { word: "LUKTOS", definition: "Pagbaluktot ng papel o dahon", sentence: "Ang <span class='blank'>_____</span> ng papel ay nakakapagpalain." },
+    { word: "MUTYA", definition: "Mahalagang hiyas o perlas", sentence: "Ang <span class='blank'>_____</span> ng dagat ay napakaganda." },
+    { word: "PAGKIT", definition: "Pandikit o pantali", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "PAGOD", definition: "Kapaguran o hingal", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagod." },
+    { word: "PANATA", definition: "Pangako o sumpa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay hindi madaling makuha." },
+    { word: "PUGAY", definition: "Paggalang o pagbati", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "RIKIT", definition: "Kagandahan o kariktan", sentence: "Ang <span class='blank'>_____</span> ng mga tanawin ay napakaganda." },
+    { word: "SALIK", definition: "Elemento o sangkap", sentence: "Ang <span class='blank'>_____</span> ng mga bagay ay mahalaga." },
+    { word: "SINAG", definition: "Liwanag na nanggagaling sa araw", sentence: "Ang <span class='blank'>_____</span> ng araw ay nagbigay ng kasiyahan." },
+    { word: "SIPING", definition: "Nasa tabi o malapit", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TAGURI", definition: "Titulo o palayaw", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TALA", definition: "Bituin o pangalan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TALAS", definition: "Katalasan ng isip", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TALIM", definition: "Kahusayan o kasanayan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TAMPOK", definition: "Tampulan ng pansin", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TAROK", definition: "Pinakamalalim na bahagi", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TIMPI", definition: "Pagpipigil ng sarili", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TINDIG", definition: "Tayog o anyo", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TITIG", definition: "Masinsinang pagtingin", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "TUGDA", definition: "Patakaran o alituntunin", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "ULILA", definition: "Naulila o nag-iisa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "UNAWA", definition: "Pag-intindi o pagkaunawa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "UNLAK", definition: "Pagbibigay ng karangalan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "UNOS", definition: "Malakas na bagyo", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "UNTAG", definition: "Unang liwanag ng araw", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "WAGAS", definition: "Dalisay o walang bahid", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "YABAG", definition: "Tunog ng yapak", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." }
 ];
 
 document.getElementById('startGame').addEventListener('click', startGame);
 document.getElementById('submitGuess').addEventListener('click', checkGuess);
 document.getElementById('nextWord').addEventListener('click', nextRound);
+document.getElementById('hintButton').addEventListener('click', showHint);
 
 // Save game state to localStorage
 function saveGameState() {
     const gameState = {
         currentWord: currentWord,
         currentDefinition: currentDefinition,
+        currentSentence: currentSentence,
         scrambledWord: scrambledWord,
         attempts: attempts,
         currentRound: currentRound,
@@ -79,6 +81,7 @@ function loadGameState() {
         const gameState = JSON.parse(savedState);
         currentWord = gameState.currentWord;
         currentDefinition = gameState.currentDefinition;
+        currentSentence = gameState.currentSentence;
         scrambledWord = gameState.scrambledWord;
         attempts = gameState.attempts;
         currentRound = gameState.currentRound;
@@ -106,36 +109,6 @@ function startGame() {
     document.getElementById('nextWord').style.display = 'inline-block'; // Show the next button
     currentRound = 0; // Reset rounds
     nextRound(); // Start the first round
-}
-
-function nextRound() {
-    if (currentRound >= maxRounds) {
-        alert('Game over! You have completed all rounds.');
-        document.getElementById('game').classList.add('hidden');
-        return;
-    }
-
-    currentRound++;
-
-    // Pick a random word from the list
-    const randomIndex = Math.floor(Math.random() * words.length);
-    currentWord = words[randomIndex].word.toLowerCase();
-    currentDefinition = words[randomIndex].definition;
-
-    scrambledWord = scrambleWord(currentWord);
-    
-    document.getElementById('scrambledWord').innerText = scrambledWord;
-    document.getElementById('definition').innerText = currentDefinition;
-    document.getElementById('game').classList.remove('hidden');
-    document.getElementById('result').innerText = '';
-    document.getElementById('userGuess').value = '';
-    
-    // Dynamically set maxlength for the input field
-    document.getElementById('userGuess').setAttribute('maxlength', currentWord.length);
-
-    attempts = 0; // Reset attempts for each round
-    saveGameState(); 
-    updateRoundDisplay(); // Update the round display
 }
 
 function updateRoundDisplay() {
@@ -212,15 +185,93 @@ function checkGuess() {
 
     if (userGuess === currentWord) {
         document.getElementById('result').innerText = 'Correct! 🎉';
-        nextRound(); // Proceed to the next round
+        revealSentence(); // Reveal the sentence
+        document.getElementById('nextWord').style.display = 'inline-block'; // Show the next button
         return;
     }
 
-    if (attempts >= 5) {
-        document.getElementById('result').innerHTML = `Game over! The word was:<br><span>${currentWord.toUpperCase()}</span>`;
+    if (attempts >= 3) {
+        document.getElementById('result').innerHTML = `
+            <span style="color: red;">Incorrect! The word was:</span><br>
+            <span style="color: green;">${currentWord.toUpperCase()}</span>
+        `;
+        revealSentence(); // Reveal the sentence
+        document.getElementById('nextWord').style.display = 'inline-block'; // Show the next button
         return;
-    }    
+    }
 
     document.getElementById('userGuess').value = '';
     saveGameState(); 
+}
+
+function revealSentence() {
+    const completeSentence = currentSentence.replace("<span class='blank'>_____</span>", `<span class='correct-word'>${currentWord.toUpperCase()}</span>`);
+    document.getElementById('scrambledWord').innerText = currentWord.toUpperCase(); // Display the unscrambled word
+    document.getElementById('sentence').innerHTML = completeSentence; // Display the sentence
+    document.getElementById('definition').innerText = currentDefinition;
+    document.getElementById('userGuess').style.display = 'none'; // Hide the input field
+    document.getElementById('submitGuess').style.display = 'none'; // Hide the submit button
+}
+
+function nextRound() {
+    if (currentRound >= maxRounds) {
+        // Display the final score when all rounds are completed
+        alert(`Game over! You have completed all rounds. Your score: ${currentRound}/${maxRounds}`);
+        document.getElementById('game').classList.add('hidden');
+        return;
+    }
+
+    currentRound++;
+
+    // Pick a random word from the list
+    const randomIndex = Math.floor(Math.random() * words.length);
+    currentWord = words[randomIndex].word.toLowerCase();
+    currentDefinition = words[randomIndex].definition;
+    currentSentence = words[randomIndex].sentence;
+
+    scrambledWord = scrambleWord(currentWord);
+    
+    // Clear the sentence section when moving to the next round
+    document.getElementById('sentence').innerHTML = ''; // Clear the example sentence
+    document.getElementById('scrambledWord').innerText = scrambledWord;
+    document.getElementById('definition').innerText = ''; // Hide definition initially
+    document.getElementById('game').classList.remove('hidden');
+    document.getElementById('result').innerText = '';
+    document.getElementById('userGuess').value = '';
+    document.getElementById('userGuess').style.display = 'inline-block'; // Show the input field
+    document.getElementById('submitGuess').style.display = 'inline-block'; // Show the submit button
+    document.getElementById('nextWord').style.display = 'none'; // Hide the next button
+    
+    // Dynamically set maxlength for the input field
+    document.getElementById('userGuess').setAttribute('maxlength', currentWord.length);
+
+    attempts = 0; // Reset attempts for each round
+    saveGameState(); 
+    updateRoundDisplay(); // Update the round display
+}
+
+// Function to toggle the hint visibility
+function showHint() {
+    const definitionElement = document.getElementById('definition');
+    if (definitionElement.classList.contains('visible')) {
+        // Hide the hint
+        definitionElement.classList.remove('visible');
+        definitionElement.innerText = '';
+    } else {
+        // Show the hint
+        definitionElement.classList.add('visible');
+        definitionElement.innerText = currentDefinition;
+    }
+}
+
+// Event listener for the hint button
+document.getElementById('hintButton').addEventListener('click', showHint);
+
+function revealSentence() {
+    const completeSentence = currentSentence.replace("<span class='blank'>_____</span>", `<span class='correct-word'>${currentWord.toUpperCase()}</span>`);
+    document.getElementById('scrambledWord').innerText = currentWord.toUpperCase(); // Display the unscrambled word
+    document.getElementById('sentence').innerHTML = completeSentence; // Display the sentence
+    document.getElementById('definition').innerText = currentDefinition;
+    document.getElementById('userGuess').style.display = 'none'; // Hide the input field
+    document.getElementById('submitGuess').style.display = 'none'; // Hide the submit button
 }
