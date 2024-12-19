@@ -6,23 +6,25 @@ body, h1, h2, h3, p, a, button, input {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: sans-serif;
     line-height: 1.6;
-    background-color: #f2f2f2; /* Creamy background */
+    background-color: #f2f2f2;
     color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
 }
 
 header {
     background-color: #333;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     width: 100%;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-weight: bolder;
     position: fixed; /* Fixed at the top */
     top: 0;
     left: 0;
@@ -32,7 +34,7 @@ header {
 header h1 {
     font-size: 24px;
     margin-bottom: 10px;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 header p {
@@ -44,6 +46,14 @@ main {
     width: 100%;
     max-width: 600px;
     padding: 20px;
+}
+
+/* Progress Counter */
+#progress-counter {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .game-container {
@@ -65,24 +75,13 @@ main {
     color: #007bff;
 }
 
-.blank-input {
-    font-size: 1em;
-    text-align: center;
-    padding: 10px;
-    width: 80%;
-    margin: 10px 0;
-    border: 2px solid #333; /* Black border */
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
+.choices {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-.blank-input:focus {
-    outline: none;
-    border-color: #6aaa64;
-}
-
-button {
+.choice {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -90,12 +89,19 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin: 10px 0;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.choice:hover {
     background-color: #0056b3;
+}
+
+.choice.correct {
+    background-color: #6aaa64; /* Green for correct answer */
+}
+
+.choice.wrong {
+    background-color: #ff4d4d; /* Red for wrong answer */
 }
 
 #result {
@@ -113,7 +119,19 @@ button:hover {
 }
 
 #next-sentence {
-    display: none;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+#next-sentence:hover {
+    background-color: #5a6268;
 }
 
 footer {
@@ -122,18 +140,9 @@ footer {
 }
 
 .back-button {
-    display: inline-block;
-    background-color: #6c757d;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    font-family: sans-serif;
+    color: #007bff;
     text-decoration: none;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #5a6268;
 }
 
 @media (max-width: 768px) {
@@ -145,7 +154,11 @@ footer {
         font-size: 1.2em;
     }
 
-    .blank-input {
-        width: 100%;
+    .choices {
+        grid-template-columns: 1fr;
+    }
+
+    .choice {
+        padding: 10px;
     }
 }

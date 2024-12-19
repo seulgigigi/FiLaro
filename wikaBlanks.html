@@ -9,26 +9,34 @@
 <body>
     <header>
         <h1>WikaBlanks</h1>
-        <h1>work in progress :3</h1>
     </header>
 
     <main>
         <div class="game-container">
-            <img src="sonicrizz.gif" alt="wazaa" class="funny-gif">
+            <!-- Progress Counter -->
+            <p id="progress-counter">1/20</p>
+
+            <!-- Sentence with a blank -->
             <p class="sentence">
-                <li>ohhh ohhh ohhh ohhh no me but u n i</li> 
                 Ang <span class="blank">_____</span> ay isang <span class="blank">_____</span>.
             </p>
-            <input type="text" class="blank-input" placeholder="Enter a word">
-            <input type="text" class="blank-input" placeholder="Enter a word">
-            <button id="submit">Submit</button>
+
+            <!-- Choices -->
+            <div class="choices">
+                <button class="choice" id="choice1">Choice 1</button>
+                <button class="choice" id="choice2">Choice 2</button>
+                <button class="choice" id="choice3">Choice 3</button>
+                <button class="choice" id="choice4">Choice 4</button>
+            </div>
         </div>
 
+        <!-- Result Display -->
         <div id="result" class="hidden">
             <p>Result: <span id="result-text"></span></p>
         </div>
 
-        <button id="next-sentence" class="hidden">Next Sentence</button>
+        <!-- Next Sentence Button -->
+        <button id="next-sentence" class="hidden">Next</button>
     </main>
 
     <footer>
