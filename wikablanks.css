@@ -88,8 +88,8 @@ main {
 }
 
 .game-container {
-    background-color: #fff;
-    border: 2px solid #5e17eb; /* Logo color */
+    background-color: #fffaf3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -132,7 +132,7 @@ main {
 
 .choice:hover {
     background-color: #ff8031; /* Alternate logo color */
-    transform: scale(1.1); /* Scale up on hover */
+    transform: scale(1.03); /* Scale up on hover */
 }
 
 .choice.correct {
@@ -148,7 +148,7 @@ main {
     margin-top: 20px;
     padding: 20px;
     background-color: #f9f9f9; /* Light background for the result box */
-    border: 2px solid #5e17eb; /* Logo color */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 10px;
     text-align: center;
     transition: box-shadow 0.3s ease; /* Smooth transition */
@@ -207,13 +207,12 @@ main {
     margin: 10px auto;
     transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
     text-decoration: none;
-    transition: color 0.3s ease; /* Smooth transition */
     text-align: center; /* Center the text */
 }
 
 #next-sentence:hover {
     background-color: #5e17eb; /* Logo color */
-    transform: scale(1.1); /* Scale up on hover */
+    transform: scale(1.03); /* Scale up on hover */
 }
 
 footer {
@@ -267,37 +266,26 @@ footer {
 @media (max-width: 768px) {
     .game-container {
         margin-top: -100px;
-        margin-bottom: 200px;
-        padding: 8px;
-    }
-
-    .back-button{
-        margin-top: -40px;
-    }
-    #result {
-        margin-top: -195px;
-        padding: 20px;
-        background-color: #f9f9f9; /* Light background for the result box */
-        border: 2px solid #5e17eb; /* Logo color */
-        border-radius: 10px;
-        text-align: center;
-        transition: box-shadow 0.3s ease; /* Smooth transition */
+        padding: 5px; /* Reduce padding for better fit */
     }
 
     .sentence {
-        font-size: 1.2em;
+        font-size: 1.2em; /* Reduce font size for smaller screens */
     }
 
     .choices {
-        grid-template-columns: 1fr;
-    }
-
-    .choice:hover {
-        background-color: #ff8031; /* Alternate logo color */
-        transform: scale(1.03); /* Scale up on hover */
+        grid-template-columns: 1fr; /* Stack buttons vertically */
     }
 
     .choice {
-        padding: 10px;
+        padding: 10px; /* Reduce padding for better fit */
+    }
+
+    #result {
+        padding: 10px; /* Reduce padding for better fit */
+    }
+
+    #next-sentence {
+        padding: 10px; /* Reduce padding for better fit */
     }
 }

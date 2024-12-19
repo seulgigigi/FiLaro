@@ -83,23 +83,35 @@ main {
     width: 100%;
 }
 
-.game-mode {
+/* Common styles for both game modes */
+.game-mode1, .game-mode2 {
     letter-spacing: .5px;
-    border: 2px solid #333;
-    border-radius: 25px;
-    text-decoration: none;
-    background-color: #fff;
     border-radius: 10px;
+    text-decoration: none;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 70px;
+    padding: 20px; /* Reduced padding for better fit */
     text-align: center;
-    width: 200px; /* Fixed width for each game mode */
-    height: 220px;
+    width: 300px; /* Fixed width for each game mode */
+    height: 320px;
     transition: transform 0.1s ease; /* Smooth transition for hover effect */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.game-mode:hover {
-    transform: scale(1.1); /* Enlarge the game mode on hover */
+/* Specific background colors for each game mode */
+.game-mode1 {
+    background-color: #b4a8ff;
+}
+
+.game-mode2 {
+    background-color: #feb94a;
+}
+
+.laro:hover {
+    transform: scale(1.2); /* Enlarge the game mode on hover */
+    transition: transform 0.3s ease;
 }
 
 .game-mode h2 {
@@ -112,14 +124,14 @@ main {
 .game-mode p {
     font-size: 16px;
     color: #666;
-    margin-bottom: 70px;
+    margin-bottom: 20px; /* Reduced margin */
 }
 
 .game-mode a {
     color: #007bff;
     text-decoration: none;
     font-size: 16px;
-    margin-bottom: 50px;
+    margin-bottom: 10px; /* Reduced margin */
 }
 
 .game-mode a:hover {
@@ -131,12 +143,12 @@ main {
     justify-content: center;
     max-width: 100%;
     gap: 10px;
-    margin-bottom: 60px;
+    margin-bottom: 20px; /* Reduced margin */
 }
 
 .image-container img {
-    width: 110px; /* Adjust size as needed */
-    height: 110px;
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
     border-radius: 5%; /* Makes the images circular */
     object-fit: cover; /* Ensures the image fits the container */
 }
@@ -150,18 +162,18 @@ footer {
     margin-top: auto; /* Push the footer to the bottom */
 }
 
-.laro{
+.laro {
     display: block;
     width: 80%;
     padding: 12px;
     margin: 10px auto;
-    border: 2px solid #333;
+    margin-top: 20px;
     border-radius: 25px;
     text-decoration: none;
     color: #333;
     font-family: sans-serif;
     font-size: 16px;
-    background-color: white;
+    background-color: whitesmoke;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -188,36 +200,47 @@ footer {
 @media (max-width: 768px) {
     .game-modes {
         flex-direction: column;
+        gap: 40px; /* Reduce gap between game modes */
     }
 
-    .game-mode {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        padding: 10px;
+    .game-mode1, .game-mode2 {
+        width: 80%; /* Adjust width for better fit on mobile */
+        height: auto; /* Allow height to adjust automatically */
+        padding: 10px; /* Further reduce padding */
     }
 
     .image-container {
-        margin-bottom: 20px;
+        margin-bottom: 10px; /* Reduce margin */
     }
 
     .image-container img {
-        width: 100px; /* Adjust size as needed */
-        height: 100px;
-        border-radius: 5%; /* Makes the images circular */
-        object-fit: cover; /* Ensures the image fits the container */
+        width: 60px; /* Adjust image size */
+        height: 60px;
     }
 
-    .game-mode {
-        width: 80%; 
-        height: 40%/* Adjust width for smaller screens */
+    .game-mode h2 {
+        font-size: 24px; /* Reduce heading font size */
     }
 
-    .game-mode:hover {
-        transform: scale(1.03); /* Enlarge the game mode on hover */
+    .game-mode p {
+        font-size: 14px; /* Reduce paragraph font size */
+        margin-bottom: 10px; /* Reduce margin */
     }
 
-    .laro{
-        padding-top: -1em;
+    .laro {
+        padding: 10px; /* Adjust padding for better tap area */
+        font-size: 14px; /* Adjust font size for better readability */
+    }
+
+    header h1 {
+        font-size: 20px; /* Reduce header font size */
+    }
+
+    header p {
+        font-size: 16px; /* Reduce header font size */
+    }
+
+    footer p {
+        font-size: 14px; /* Reduce footer font size */
     }
 }
