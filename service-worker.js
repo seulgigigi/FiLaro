@@ -1,26 +1,26 @@
 // Cache name
-const CACHE_NAME = 'fi-laro-cache-v1';
+const CACHE_NAME = 'fi-laro-cache-v2';
 
 // Files to cache
 const urlsToCache = [
     '/',
-    'index.html',
-    'salita.html',
-    'wikablanks.html',
-    'styles.css',
-    'salita.css',
-    'wikablanks.css',
-    'script.js',
-    'salita.js',
-    'wikablanks.js',
-    'icons/icon-48x48.png',
-    'icons/icon-72x72.png',
-    'icons/icon-96x96.png',
-    'icons/icon-128x128.png',
-    'icons/icon-144x144.png',
-    'icons/icon-152x152.png',
-    'icons/icon-192x192.png',
-    'icons/icon-512x512.png'
+    '/index.html',
+    '/menu.css',
+    '/saliScramble.hmlt',
+    '/wikaBlanks.html',
+    '/styles.css',
+    '/saliScramble.css',
+    '/wikablanks.css',
+    '/script.js',
+    '/saliScramble.js',
+    '/wikablanks.js',
+    '/icons/72.png',
+    '/icons/96.png',
+    '/icons/128.png',
+    '/icons/144.png',
+    '/icons/152.png',
+    '/icons/192.png',
+    '/icons/512.png'
 ];
 
 // Install event: Cache the files
@@ -44,7 +44,18 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 // Not in cache - fetch from network
-                return fetch(event.request);
+                return fetch(event.request).then(networkResponse => {
+                    // If the request is for an HTML page, cache it
+                    if (event.request.mode === 'navigate') {
+                        caches.open(CACHE_NAME).then(cache => {
+                            cache.put(event.request, networkResponse.clone());
+                        });
+                    }
+                    return networkResponse;
+                }).catch(() => {
+                    // Fallback to a custom offline page
+                    return caches.match('/offline.html');
+                });
             })
     );
 });
@@ -57,6 +68,7 @@ self.addEventListener('activate', event => {
             return Promise.all(
                 cacheNames.map(cacheName => {
                     if (cacheWhitelist.indexOf(cacheName) === -1) {
+                        console.log(`Deleting old cache: ${cacheName}`);
                         return caches.delete(cacheName);
                     }
                 })
