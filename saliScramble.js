@@ -4,7 +4,7 @@ let currentSentence = '';
 let scrambledWord = '';
 let attempts = 0;
 let currentRound = 0;
-const maxRounds = 20; // Maximum round (20 words)
+const maxRounds = 20; // Maximum rounds (20 words)
 
 // Hardcoded word list for SALITA mode
 const words = [
