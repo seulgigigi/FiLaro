@@ -8,19 +8,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedAvatar = localStorage.getItem('selectedAvatar') || 'pedro';
     let botName = localStorage.getItem('botName') || '';
 
-    // Update bot display function
+    // Get base URL for GitHub Pages
+    const baseUrl = window.location.pathname.includes('/FiLaro') 
+        ? '/your-repo-name' 
+        : '';
+
     function updateBotDisplay() {
         if (bot) {
-            bot.style.backgroundImage = `url('./images/bot/${selectedAvatar}.png')`; // Updated path
-            console.log("Bot image path:", `./images/bot/${selectedAvatar}.png`);
+            bot.style.backgroundImage = `url('${baseUrl}/images/bot/${selectedAvatar}.png')`;
         }
         if (botNameDisplay) {
             botNameDisplay.textContent = botName;
         }
     }
 
-    // Initial bot display update
     updateBotDisplay();
+
 
     if (avatarCards.length > 0) {
         // Update selected avatar visual
