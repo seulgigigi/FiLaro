@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaliScramble</title>
     <link rel="icon" href="icons/ss500.png" sizes="500x500" type="image/png">
+    <script src="menu.js"></script>
     <link rel="stylesheet" href="saliScramble.css">
     </style>
 </head>
@@ -15,6 +16,28 @@
         </div>
         <h1>SaliScramble</h1>
     </header>
+    <div id="bot">
+        <div id="speech-bubble"></div>
+    </div>
+    <p id="bot-name-display"></p>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bot = document.getElementById('bot');
+            const botNameDisplay = document.getElementById('bot-name-display');
+    
+            // Load saved bot customization
+            const savedAvatar = localStorage.getItem('selectedAvatar');
+            const savedBotName = localStorage.getItem('botName');
+    
+            if (savedAvatar) {
+                bot.style.backgroundImage = `url('images/${savedAvatar}.png')`;
+            }
+            if (savedBotName) {
+                botNameDisplay.textContent = savedBotName;
+            }
+        });
+    </script>
     <div class="container">
         <button id="startGame">Start</button>
         <div id="game" class="hidden">

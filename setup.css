@@ -1,0 +1,253 @@
+/* Reset some default styles */
+/* Prevent horizontal overflow */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Apply Inter font to all elements */
+body, h1, h2, h3, p, a, button, input {
+    font-family: 'Inter', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/* Ensure all elements fit within the viewport */
+body {
+    width: 100%;
+    max-width: 100vw; /* Ensure the body doesn't exceed the viewport width */
+    background-color: #f2f2f2;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    margin-right: 10px; /* Space between logo and title */
+    letter-spacing: 0.5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.logo-container {
+    margin-left: 20px;
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.logo {
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+    border-radius: 5%; /* Makes the logo circular */
+    object-fit: cover; /* Ensures the logo fits the container */
+}
+
+/* Main Content Styles */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-grow: 1; /* Allow the main content to grow and take up remaining space */
+    padding: 20px;
+}
+
+/* Setup Container Styles */
+#setup-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#setup-container h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Avatar Options Styles */
+#avatar-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.avatar-card {
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.avatar-card:hover {
+    border-color: #007bff;
+    transform: translateY(-5px);
+}
+
+.avatar-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-card p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Bot Name Section Styles */
+#bot-name-section {
+    margin-bottom: 20px;
+}
+
+#bot-name-section label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#bot-name {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    transition: border-color 0.3s ease;
+}
+
+#bot-name:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+/* Save Button Styles */
+#save-bot {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+#save-bot:hover {
+    background-color: #0056b3;
+}
+
+/* Bot Styles */
+#bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px; /* Default size */
+    height: 100px; /* Default size */
+    background-size: cover;
+    z-index: 1000; /* Ensure it's above other elements */
+    cursor: pointer;
+    animation: bounce 5s infinite;
+}
+
+#speech-bubble {
+    position: absolute;
+    bottom: 120px;
+    right: 0;
+    width: 150px;
+    padding: 10px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    font-size: 14px;
+    z-index: 1001; /* Ensure it's above the bot */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    width: 100%;
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Adjust bot size and position for smaller screens */
+    #bot {
+        width: 80px; /* Smaller size for mobile */
+        height: 80px; /* Smaller size for mobile */
+        bottom: 10px;
+        right: 10px;
+    }
+
+    #speech-bubble {
+        bottom: 100px; /* Adjust position for smaller bot */
+        width: 120px; /* Smaller speech bubble */
+        font-size: 12px; /* Smaller font size */
+    }
+
+    /* Adjust avatar options for smaller screens */
+    #avatar-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .avatar-card img {
+        width: 80px; /* Smaller avatar images */
+        height: 80px; /* Smaller avatar images */
+    }
+
+    /* Adjust setup container padding */
+    #setup-container {
+        padding: 10px;
+    }
+
+    /* Adjust input and button sizes */
+    #bot-name {
+        max-width: 100%;
+    }
+
+    #save-bot {
+        width: 100%;
+    }
+}

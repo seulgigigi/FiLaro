@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FiLaro: Filipino Word Minigames.</title>
     <link rel="icon" href="icons/fl500.png" sizes="500x500" type="image/png">
+    <script src="menu.js"></script>
     <link rel="stylesheet" href="menu.css">
     <link rel="manifest" href="manifest.json">
 </head>
@@ -20,34 +22,50 @@
                 <div class="image-container">
                     <img src="icons/ss500.png" alt="SaliScramble">
                 </div>
-                    <h2>SaliScramble</h2>
-                    <p>Unscramble niche pinoy words.</p>
-                    <a href="saliScramble.html" class="laro">Play</a>
+                <h2>SaliScramble</h2>
+                <p>Unscramble niche pinoy words.</p>
+                <a href="saliScramble.html" class="laro">Play</a>
             </div>
             <div class="game-mode2">
                 <div class="image-container">
                     <img src="icons/wb500.png" alt="WikaBlanks">
                 </div>
-                    <h2>WikaBlanks</h2>
-                    <p>Use the correct word for the sentences.</p>
-                    <a href="wikaBlanks.html" class="laro">Play</a>
+                <h2>WikaBlanks</h2>
+                <p>Use the correct word for the sentences.</p>
+                <a href="wikaBlanks.html" class="laro">Play</a>
             </div>
         </section>
+        <div id="bot">
+            <div id="speech-bubble"></div>
+        </div>
+        <p id="bot-name-display"></p>
+        <a href="setup.html" class="back-button">Customize Bot</a>
     </main>
     <footer>
         <p>&copy; Group 3.</p>
     </footer>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bot = document.getElementById('bot');
+            const savedAvatar = localStorage.getItem('selectedAvatar') || 'pedro'; // Fallback to 'pedro'
+    
+            if (bot && savedAvatar) {
+                bot.style.backgroundImage = `url('bot/${savedAvatar}.png')`;
+                console.log("Bot Image Updated to:", savedAvatar); // Debugging
+            }
+        });
+    </script>
+    <script>
         if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register("/pwabuilder-sw.js")
-              .then((registration) => {
-                console.log('Service Worker registered:', registration);
-              })
-              .catch((error) => {
-                console.log('Service Worker registration failed:', error);
-              });
-          });
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register("/pwabuilder-sw.js")
+                    .then((registration) => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
         }
     </script>
 </body>

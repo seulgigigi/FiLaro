@@ -1,9 +1,50 @@
 /* Reset some default styles */
 /* Prevent horizontal overflow */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Apply Inter font to all elements */
+body, h1, h2, h3, p, a, button, input {
+    font-family: 'Inter', sans-serif;
+}
 html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+#bot {
+    position: fixed;
+    bottom: 100px;
+    left: 50px;
+    right: 10px;
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+#speech-bubble {
+    position: absolute;
+    bottom: 150px;
+    right: 0;
+    width: 150px;
+    padding: 10px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    font-size: 14px;
+    z-index: 1001; /* Ensure it's above the bot */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+#bot {
+    animation: bounce 5s infinite;
 }
 
 /* Ensure all elements fit within the viewport */
@@ -331,6 +372,31 @@ footer {
         height: 50px;
         line-height: 50px;
         font-size: 1.2em;
+    }
+
+    #speech-bubble {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        width: 80px;
+        padding: 10px;
+        background: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        text-align: center;
+        display: none;
+        font-size: 10px;
+        z-index: 1001; /* Ensure it's above the bot */
+    }
+
+    #bot {
+        position: fixed;
+        bottom: 80px;
+        right: 10px;
+        width: 80px;
+        height: 80px;
+        background-size: cover;
+        z-index: 1000; /* Ensure it's above other elements */
     }
 }
 
