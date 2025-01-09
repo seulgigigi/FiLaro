@@ -93,7 +93,7 @@ button {
 
 button:hover {
     background-color: #d64c75; /* Slightly darker pink on hover */
-    transform: scale(1.05); /* Slight zoom effect on hover */
+    transform: scale(1.03); /* Slight zoom effect on hover */
 }
 
 .toggle-button {

@@ -2,10 +2,15 @@
     "name": "FiLaro",
     "short_name": "FiLaro",
     "description": "FiLaro: Word and Vocabulary Minigames: SaliScramble and WikaBlanks!",
-    "start_url": "/index.html",
+    "start_url": "index.html",
     "display": "standalone",
     "background_color": "#f2f2f2",
     "theme_color": "#333",
+    "categories": [
+      "education",
+      "entertainment",
+      "games"
+    ],
     "icons": [
         {
             "src": "/icons/icon-48x48.png",

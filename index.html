@@ -1,12 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FiLaro: Word and Vocabulary Minigames.</title>
+    <title>FiLaro: Filipino Word Minigames.</title>
     <link rel="icon" href="icons/fl500.png" sizes="500x500" type="image/png">
     <link rel="stylesheet" href="menu.css">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <header>
@@ -39,18 +38,17 @@
         <p>&copy; Group 3.</p>
     </footer>
     <script>
-        // Check if service workers are supported
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
-            });
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register("pwabuilder-sw.js")
+              .then((registration) => {
+                console.log('Service Worker registered:', registration);
+              })
+              .catch((error) => {
+                console.log('Service Worker registration failed:', error);
+              });
+          });
         }
-    </script>
+      </script>
 </body>
 </html>
