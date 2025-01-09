@@ -40,7 +40,7 @@
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
-            navigator.serviceWorker.register("pwabuilder-sw.js")
+            navigator.serviceWorker.register("/pwabuilder-sw.js")
               .then((registration) => {
                 console.log('Service Worker registered:', registration);
               })
@@ -49,6 +49,6 @@
               });
           });
         }
-      </script>
+    </script>
 </body>
 </html>
