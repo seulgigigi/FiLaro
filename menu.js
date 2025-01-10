@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update bot display function
     function updateBotDisplay() {
         if (bot) {
-            bot.style.backgroundImage = `url('./images/bot/${selectedAvatar}.png')`; // Updated path
-            console.log("Bot image path:", `./images/bot/${selectedAvatar}.png`);
+            bot.style.backgroundImage = `url('images/bot/${selectedAvatar}.png')`; // Updated path
+            console.log("Bot image path:", `images/bot/${selectedAvatar}.png`);
         }
         if (botNameDisplay) {
             botNameDisplay.textContent = botName;
