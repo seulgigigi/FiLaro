@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaliScramble</title>
     <link rel="icon" href="icons/ss500.png" sizes="500x500" type="image/png">
-    <script src="menu.js"></script>
     <link rel="stylesheet" href="saliScramble.css">
-    </style>
 </head>
 <body>
     <header>
@@ -16,48 +14,51 @@
         </div>
         <h1>SaliScramble</h1>
     </header>
+
+    <!-- Bot and Speech Bubble -->
     <div id="bot">
         <div id="speech-bubble"></div>
     </div>
-    <p id="bot-name-display"></p>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const bot = document.getElementById('bot');
-            const botNameDisplay = document.getElementById('bot-name-display');
-    
-            // Load saved bot customization
-            const savedAvatar = localStorage.getItem('selectedAvatar');
-            const savedBotName = localStorage.getItem('botName');
-    
-            if (savedAvatar) {
-                bot.style.backgroundImage = `url('images/${savedAvatar}.png')`;
-            }
-            if (savedBotName) {
-                botNameDisplay.textContent = savedBotName;
-            }
-        });
-    </script>
+
+    <!-- Game Container -->
     <div class="container">
         <button id="startGame">Start</button>
+        <button id="instructionButton">Instructions</button>
+        
         <div id="game" class="hidden">
-            <p id="roundDisplay">0/20</p> <!-- Round progress display -->
-            <p id="definition"></p> 
-            <p id="scrambledWord"></p> <!-- Scrambled word section -->
-            <p id="sentence"></p> <!-- New section for the sentence -->
+            <p id="roundDisplay">0/20</p>
+            <p id="definition"></p>
+            <p id="scrambledWord"></p>
+            <p id="sentence"></p>
             <input type="text" id="userGuess" placeholder="..." autocomplete="off">
             <button id="submitGuess">Submit</button>
             <button id="hintButton" class="hint-button">Hint</button>
+            <button id="reshuffleButton" class="hint-button">Reshuffle</button>
             <div id="result"></div>
         </div>
         <button id="nextWord" class="hidden">Next</button>
-        <!-- Back to Main Menu button -->
     </div>
-        <a href="index.html" class="back-button">Main Menu</a>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Instructions</h2>
+            <p>1. Unscramble the word.</p>
+            <p>2. You have 2 attempts to guess the correct word.</p>
+            <p>3. Use the hint button if you need help.</p>
+            <p>4. Click 'Reshuffle' to reshuffle the word.</p>
+        </div>
+    </div>
+
+    <!-- Back to Main Menu -->
+    <a href="index.html" class="back-button">Main Menu</a>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; Group 3.</p>
     </footer>
-    
+
     <script src="saliScramble.js"></script>
 </body>
 </html>

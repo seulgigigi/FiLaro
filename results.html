@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - SaliScramble</title>
+    <link rel="stylesheet" href="saliScramble.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="icons/ss500.png" alt="saliScramble Logo" class="logo">
+        </div>
+        <h1>Results</h1>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Your Score</h2>
+            <p id="scoreDisplay"></p>
+            <p id="botSummary"></p>
+            <button id="playAgain">Play Again</button>
+            <a href="index.html" class="back-button">Main Menu</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Group 3.</p>
+    </footer>
+
+    <script>
+        // Get the score from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get('score');
+
+        // Display the score
+        document.getElementById('scoreDisplay').textContent = `You scored ${score} out of 20!`;
+
+        // Bot summary
+        const botSummary = document.getElementById('botSummary');
+        if (score >= 16) {
+            botSummary.textContent = "Ang galing mo! Sobrang husay!";
+        } else if (score >= 10) {
+            botSummary.textContent = "Good job! Kaya mo pa yan!";
+        } else {
+            botSummary.textContent = "Subukan ulit! Kaya mo yan!";
+        }
+
+        // Play Again button
+        document.getElementById('playAgain').addEventListener('click', () => {
+            window.location.href = 'saliScramble.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /* Reset some default styles */
 /* Prevent horizontal overflow */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
+@import 'global.css';
 /* Apply Inter font to all elements */
 body, h1, h2, h3, p, a, button, input {
     font-family: 'Inter', sans-serif;

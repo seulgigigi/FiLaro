@@ -1,7 +1,7 @@
 /* Reset some default styles */
 /* Prevent horizontal overflow */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
+@import 'global.css';
 /* Apply Inter font to all elements */
 body, h1, h2, h3, p, a, button, input {
     font-family: 'Inter', sans-serif;
@@ -11,6 +11,18 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.back-button{
+    padding-top: 30px;
+    font-family: sans-serif;
+    color: #ef6589; /* Logo's pink color */
+    text-decoration: none;
+}
+
+.back-button:hover{
+    color: #4a148c; /* Logo's pink color */
+    text-decoration: none;
 }
 
 /* Ensure all elements fit within the viewport */
@@ -73,7 +85,7 @@ main {
 
 /* Setup Container Styles */
 #setup-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;

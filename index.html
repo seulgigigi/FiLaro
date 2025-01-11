@@ -38,23 +38,11 @@
         <div id="bot">
             <div id="speech-bubble"></div>
         </div>
-        <p id="bot-name-display"></p>
         <a href="setup.html" class="back-button">Customize Bot</a>
     </main>
     <footer>
         <p>&copy; Group 3.</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const bot = document.getElementById('bot');
-            const savedAvatar = localStorage.getItem('selectedAvatar') || 'pedro'; // Fallback to 'pedro'
-    
-            if (bot && savedAvatar) {
-                bot.style.backgroundImage = `url('bot/${savedAvatar}.png')`;
-                console.log("Bot Image Updated to:", savedAvatar); // Debugging
-            }
-        });
-    </script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

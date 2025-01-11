@@ -3,11 +3,15 @@ let currentDefinition = '';
 let currentSentence = '';
 let scrambledWord = '';
 let attempts = 0;
-let currentRound = 0;
-const maxRounds = 20; // Maximum rounds (20 words)
+let maxAttempts = 2; // Reduced to 2 attempts
+let difficultyLevel = 1; // Default difficulty level (1 = Easy, 2 = Medium, 3 = Hard)
+let score = 0; // Track the user's score
+let round = 0; // Track the current round
+const maxRounds = 5; // 5 words per session
 
 // Hardcoded word list for SALITA mode
 const words = [
+    // Easy (5 letters or less)
     { word: "SIKLAB", definition: "Biglaang pagsiklab ng apoy o emosyon", sentence: "Ang <span class='blank'>_____</span> ay nangyayari nang bigla." },
     { word: "PANTAS", definition: "Matalinong tao", sentence: "Siya ay isang <span class='blank'>_____</span> sa kanyang klase." },
     { word: "DUYOG", definition: "Paglalaho ng araw o buwan", sentence: "Ang <span class='blank'>_____</span> ng buwan ay nagbigay ng kasiyahan sa mga tao." },
@@ -18,6 +22,8 @@ const words = [
     { word: "BUGHAW", definition: "Kulay asul (gamit sa tula o malikhain)", sentence: "Ang <span class='blank'>_____</span> na langit ay napakaganda." },
     { word: "WAGAS", definition: "Malinis walang kapintasan at walang hanggan", sentence: "Ang <span class='blank'>_____</span> na pag-ibig ay hindi madaling makuha." },
     { word: "AGOS", definition: "Pagdaloy ng tubig o hangin sa isang direksyon", sentence: "Ang <span class='blank'>_____</span> ng ilog ay nakakapagpalain." },
+
+    // Medium (6-7 letters)
     { word: "HAPIL", definition: "Malupit na pagkatalo", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkatalo." },
     { word: "DIWA", definition: "Kaluluwa o espiritu", sentence: "Ang <span class='blank'>_____</span> ng tao ay mahalaga." },
     { word: "GUNITA", definition: "Alaala o memorya", sentence: "Ang <span class='blank'>_____</span> ng kanyang ama ay hindi madaling makalimutan." },
@@ -28,6 +34,8 @@ const words = [
     { word: "LUKTOS", definition: "Pagbaluktot ng papel o dahon", sentence: "Ang <span class='blank'>_____</span> ng papel ay nakakapagpalain." },
     { word: "MUTYA", definition: "Mahalagang hiyas o perlas", sentence: "Ang <span class='blank'>_____</span> ng dagat ay napakaganda." },
     { word: "PAGKIT", definition: "Pandikit o pantali", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+
+    // Hard (8+ letters)
     { word: "PAGOD", definition: "Kapaguran o hingal", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagod." },
     { word: "PANATA", definition: "Pangako o sumpa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay hindi madaling makuha." },
     { word: "PUGAY", definition: "Paggalang o pagbati", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
@@ -38,95 +46,93 @@ const words = [
     { word: "TAGURI", definition: "Titulo o palayaw", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
     { word: "TALA", definition: "Bituin o pangalan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
     { word: "TALAS", definition: "Katalasan ng isip", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TALIM", definition: "Kahusayan o kasanayan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TAMPOK", definition: "Tampulan ng pansin", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TAROK", definition: "Pinakamalalim na bahagi", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TIMPI", definition: "Pagpipigil ng sarili", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TINDIG", definition: "Tayog o anyo", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TITIG", definition: "Masinsinang pagtingin", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TUGDA", definition: "Patakaran o alituntunin", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "ULILA", definition: "Naulila o nag-iisa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "UNAWA", definition: "Pag-intindi o pagkaunawa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "UNLAK", definition: "Pagbibigay ng karangalan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "UNOS", definition: "Malakas na bagyo", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "UNTAG", definition: "Unang liwanag ng araw", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "WAGAS", definition: "Dalisay o walang bahid", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "YABAG", definition: "Tunog ng yapak", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." }
 ];
 
-document.getElementById('startGame').addEventListener('click', startGame);
-document.getElementById('submitGuess').addEventListener('click', checkGuess);
-document.getElementById('nextWord').addEventListener('click', nextRound);
-document.getElementById('hintButton').addEventListener('click', showHint);
-
-// Save game state to localStorage
-function saveGameState() {
-    const gameState = {
-        currentWord: currentWord,
-        currentDefinition: currentDefinition,
-        currentSentence: currentSentence,
-        scrambledWord: scrambledWord,
-        attempts: attempts,
-        currentRound: currentRound,
-        maxRounds: maxRounds,
-        words: words // Optional: Save the word list if needed
-    };
-    localStorage.setItem('gameState', JSON.stringify(gameState));
-}
-
-// Load game state from localStorage
-function loadGameState() {
-    const savedState = localStorage.getItem('gameState');
-    if (savedState) {
-        const gameState = JSON.parse(savedState);
-        currentWord = gameState.currentWord;
-        currentDefinition = gameState.currentDefinition;
-        currentSentence = gameState.currentSentence;
-        scrambledWord = gameState.scrambledWord;
-        attempts = gameState.attempts;
-        currentRound = gameState.currentRound;
-        maxRounds = gameState.maxRounds;
-        words = gameState.words || words; // Restore word list if saved
-    }
-}
-
-// Load game state when the page loads
-window.onload = function() {
-    loadGameState(); // Load saved game state
-    if (!currentWord) {
-        nextRound(); // Start a new round if no saved state
-    } else {
-        // Restore the game UI with the saved state
-        document.getElementById('scrambledWord').innerText = scrambledWord;
-        document.getElementById('definition').innerText = currentDefinition;
-        document.getElementById('game').classList.remove('hidden');
-        updateRoundDisplay(); // Update the round display
-    }
+// Bot phrases
+const botPhrases = {
+    welcome: [
+        "Tara na!",
+        "Let's go!",
+        "Simulan natin!",
+        "Game na!",
+        "Sali na!",
+    ],
+    correct: [
+        "Ang galing!",
+        "Galing mo!",
+        "Wow!",
+        "Astig!",
+        "Nice one bro!",
+        "Perfect!",
+        "Sobrang husay!",
+        "Panalo!",
+    ],
+    incorrect: [
+        "Sayang!",
+        "Muntik na!",
+        "Subukan ulit!",
+        "Kaya mo yan!",
+        "Malapit na!",
+        "Next time!",
+        "Huwag mawalan ng pag-asa!",
+    ],
 };
 
-function startGame() {
-    document.getElementById('startGame').style.display = 'none'; // Hide the start button
-    document.getElementById('nextWord').style.display = 'inline-block'; // Show the next button
-    currentRound = 0; // Reset rounds
-    nextRound(); // Start the first round
-}
-
-function updateRoundDisplay() {
-    document.getElementById('roundDisplay').innerText = `${currentRound}/${maxRounds}`;
-}
-
-// Attach an event listener to the input field
-document.getElementById('userGuess').addEventListener('keydown', function (event) {
-    // Check if the Enter key is pressed
-    if (event.key === 'Enter') {
-        // Prevent default form submission behavior (if any)
-        event.preventDefault();
-
-        // Trigger the submit button's click event
-        document.getElementById('submitGuess').click();
+// Function to make the bot say something
+function botSay(phraseType) {
+    const phrases = botPhrases[phraseType];
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    const speechBubble = document.getElementById('speech-bubble');
+    if (speechBubble) {
+        speechBubble.textContent = randomPhrase;
+        speechBubble.style.display = 'block';
+        setTimeout(() => {
+            speechBubble.style.display = 'none';
+        }, 3000); // Hide the bubble after 3 seconds
     }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Load the saved bot avatar from localStorage
+    const savedAvatar = localStorage.getItem('selectedAvatar') || 'pedro'; // Default to 'pedro' if no avatar is saved
+    const bot = document.getElementById('bot');
+
+    // Update the bot's avatar
+    if (bot) {
+        bot.style.backgroundImage = `url('images/bot/${savedAvatar}.png')`;
+        console.log("Bot image path:", `images/bot/${savedAvatar}.png`);
+    }
+
+    // Modal functionality
+    const modal = document.getElementById('instructionsModal');
+    const instructionBtn = document.getElementById('instructionButton');
+    const closeBtn = document.querySelector('.close');
+
+    instructionBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Game buttons
+    document.getElementById('startGame').addEventListener('click', startGame);
+    document.getElementById('submitGuess').addEventListener('click', checkGuess);
+    document.getElementById('nextWord').addEventListener('click', nextRound);
+    document.getElementById('hintButton').addEventListener('click', showHint);
+    document.getElementById('reshuffleButton').addEventListener('click', reshuffleWord);
 });
 
+
+
+// Function to scramble a word
 function scrambleWord(word) {
     const arr = word.split('');
     for (let i = arr.length - 1; i > 0; i--) {
@@ -136,6 +142,29 @@ function scrambleWord(word) {
     return arr.join('');
 }
 
+// Function to start the game
+function startGame() {
+    document.getElementById('startGame').classList.add('hidden'); // Hide the start button
+    document.getElementById('game').classList.remove('hidden'); // Show the game container
+    document.getElementById('nextWord').classList.add('hidden'); // Hide the next button initially
+    botSay('welcome'); // Bot says a welcoming phrase
+    nextRound(); // Start the first round
+}
+
+// Function to update the difficulty level
+function updateDifficulty() {
+    difficultyLevel = parseInt(document.getElementById('difficultySlider').value);
+    document.getElementById('difficultyValue').textContent = difficultyLevel;
+    resetGame(); // Reset the game with the new difficulty
+}
+
+// Function to reset the game
+function resetGame() {
+    attempts = 0;
+    nextRound();
+}
+
+// Function to check the user's guess
 function checkGuess() {
     const userGuess = document.getElementById('userGuess').value.trim().toLowerCase();
 
@@ -146,132 +175,96 @@ function checkGuess() {
 
     attempts++;
 
-    // Clear and rebuild the guess display for the current attempt
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = ''; // Clear previous guess row
-    const guessRow = document.createElement('div');
-    guessRow.className = 'guess-row';
-
-    let letterStatus = new Array(currentWord.length).fill('wrong');
-    const currentWordArr = currentWord.split('');
-
-    // Determine letter status
-    userGuess.split('').forEach((letter, index) => {
-        if (letter === currentWordArr[index]) {
-            letterStatus[index] = 'correct';
-        }
-    });
-
-    userGuess.split('').forEach((letter, index) => {
-        if (letterStatus[index] !== 'correct' && currentWordArr.includes(letter)) {
-            letterStatus[index] = 'wrong-position';
-        }
-    });
-
-    // Build the row with animated letter boxes
-    userGuess.split('').forEach((letter, index) => {
-        const letterBox = document.createElement('span');
-        letterBox.className = `letter-box ${letterStatus[index]}`;
-        letterBox.innerText = letter.toUpperCase();
-        guessRow.appendChild(letterBox);
-
-        // Add animation for each letter
-        setTimeout(() => {
-            letterBox.classList.add('flip-in');
-        }, index * 100); // Stagger animations slightly
-    });
-
-    resultDiv.appendChild(guessRow);
-
     if (userGuess === currentWord) {
         document.getElementById('result').innerText = 'Correct! 🎉';
-        revealSentence(); // Reveal the sentence
-        document.getElementById('nextWord').style.display = 'inline-block'; // Show the next button
+        revealSentence();
+        document.getElementById('nextWord').classList.remove('hidden'); // Show the next button
+        botSay('correct'); // Bot says a congratulatory phrase
+        score++; // Increment score for correct guess
         return;
     }
 
-    if (attempts >= 3) {
+    if (attempts >= maxAttempts) {
         document.getElementById('result').innerHTML = `
             <span style="color: red;">Incorrect! The word was:</span><br>
             <span style="color: green;">${currentWord.toUpperCase()}</span>
         `;
-        revealSentence(); // Reveal the sentence
-        document.getElementById('nextWord').style.display = 'inline-block'; // Show the next button
+        revealSentence();
+        document.getElementById('nextWord').classList.remove('hidden'); // Show the next button
+        botSay('incorrect'); // Bot says an encouraging phrase
         return;
     }
 
-    document.getElementById('userGuess').value = '';
-    saveGameState(); 
+    document.getElementById('userGuess').value = ''; // Clear the input field
+    document.getElementById('result').innerText = `Try again! Attempts left: ${maxAttempts - attempts}`;
+    botSay('incorrect'); // Bot says an encouraging phrase
 }
 
+// Function to reveal the sentence
 function revealSentence() {
     const completeSentence = currentSentence.replace("<span class='blank'>_____</span>", `<span class='correct-word'>${currentWord.toUpperCase()}</span>`);
     document.getElementById('scrambledWord').innerText = currentWord.toUpperCase(); // Display the unscrambled word
     document.getElementById('sentence').innerHTML = completeSentence; // Display the sentence
-    document.getElementById('definition').innerText = currentDefinition;
+    document.getElementById('definition').innerText = currentDefinition; // Display the definition
     document.getElementById('userGuess').style.display = 'none'; // Hide the input field
     document.getElementById('submitGuess').style.display = 'none'; // Hide the submit button
 }
 
+// Function to proceed to the next round
 function nextRound() {
-    if (currentRound >= maxRounds) {
-        // Display the final score when all rounds are completed
-        alert(`Game over! You have completed all rounds. Your score: ${currentRound}/${maxRounds}`);
-        document.getElementById('game').classList.add('hidden');
+    round++;
+    if (round > maxRounds) {
+        // Redirect to results page
+        window.location.href = `results.html?score=${score}`;
         return;
     }
 
-    currentRound++;
+    // Filter words based on difficulty level
+    const filteredWords = words.filter(word => {
+        if (difficultyLevel === 1) return word.word.length <= 5; // Easy: 5 letters or less
+        if (difficultyLevel === 2) return word.word.length > 5 && word.word.length <= 7; // Medium: 6-7 letters
+        if (difficultyLevel === 3) return word.word.length > 7; // Hard: 8+ letters
+    });
 
-    // Pick a random word from the list
-    const randomIndex = Math.floor(Math.random() * words.length);
-    currentWord = words[randomIndex].word.toLowerCase();
-    currentDefinition = words[randomIndex].definition;
-    currentSentence = words[randomIndex].sentence;
+    if (filteredWords.length === 0) {
+        alert("No words available for the selected difficulty. Please adjust the difficulty level.");
+        return;
+    }
+
+    // Pick a random word from the filtered list
+    const randomIndex = Math.floor(Math.random() * filteredWords.length);
+    currentWord = filteredWords[randomIndex].word.toLowerCase();
+    currentDefinition = filteredWords[randomIndex].definition;
+    currentSentence = filteredWords[randomIndex].sentence;
 
     scrambledWord = scrambleWord(currentWord);
-    
-    // Clear the sentence section when moving to the next round
-    document.getElementById('sentence').innerHTML = ''; // Clear the example sentence
+
+    // Update the UI
+    document.getElementById('sentence').innerHTML = '';
     document.getElementById('scrambledWord').innerText = scrambledWord;
-    document.getElementById('definition').innerText = ''; // Hide definition initially
+    document.getElementById('definition').innerText = '';
     document.getElementById('game').classList.remove('hidden');
     document.getElementById('result').innerText = '';
     document.getElementById('userGuess').value = '';
-    document.getElementById('userGuess').style.display = 'inline-block'; // Show the input field
-    document.getElementById('submitGuess').style.display = 'inline-block'; // Show the submit button
-    document.getElementById('nextWord').style.display = 'none'; // Hide the next button
-    
-    // Dynamically set maxlength for the input field
-    document.getElementById('userGuess').setAttribute('maxlength', currentWord.length);
+    document.getElementById('userGuess').style.display = 'inline-block';
+    document.getElementById('submitGuess').style.display = 'inline-block';
+    document.getElementById('nextWord').classList.add('hidden'); // Hide the next button
 
-    attempts = 0; // Reset attempts for each round
-    saveGameState(); 
-    updateRoundDisplay(); // Update the round display
+    attempts = 0; // Reset attempts for the new round
 }
 
-// Function to toggle the hint visibility
+// Function to reshuffle the word
+function reshuffleWord() {
+    scrambledWord = scrambleWord(currentWord);
+    document.getElementById('scrambledWord').innerText = scrambledWord;
+}
+
+// Function to show a hint
 function showHint() {
-    const definitionElement = document.getElementById('definition');
-    if (definitionElement.classList.contains('visible')) {
-        // Hide the hint
-        definitionElement.classList.remove('visible');
-        definitionElement.innerText = '';
-    } else {
-        // Show the hint
-        definitionElement.classList.add('visible');
-        definitionElement.innerText = currentDefinition;
-    }
+    const hint = currentDefinition;
+    document.getElementById('result').innerText = `Hint: ${hint}`;
 }
 
-// Event listener for the hint button
-document.getElementById('hintButton').addEventListener('click', showHint);
-
-function revealSentence() {
-    const completeSentence = currentSentence.replace("<span class='blank'>_____</span>", `<span class='correct-word'>${currentWord.toUpperCase()}</span>`);
-    document.getElementById('scrambledWord').innerText = currentWord.toUpperCase(); // Display the unscrambled word
-    document.getElementById('sentence').innerHTML = completeSentence; // Display the sentence
-    document.getElementById('definition').innerText = currentDefinition;
-    document.getElementById('userGuess').style.display = 'none'; // Hide the input field
-    document.getElementById('submitGuess').style.display = 'none'; // Hide the submit button
-}
+// Initialize the game
+document.getElementById('startGame').classList.remove('hidden'); // Show the start button initially
+document.getElementById('game').classList.add('hidden'); // Hide the game container initially
