@@ -2,16 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #333;
-    --secondary-color: #fffaf3;
-    --accent-color: #5e17eb;
-    --light-gray: #f2f2f2;
-    --dark-gray: #333;
-    --button-bg: #007bff;
-    --button-text: #fff;
+    --primary-color: #5e17eb; /* Kahoot's purple */
+    --secondary-color: #ff8031; /* Kahoot's orange */
+    --accent-color: #ff3131; /* Kahoot's red */
+    --light-gray: #f2f2f2; /* Light background */
+    --dark-gray: #333; /* Dark text */
+    --button-bg: #5e17eb; /* Button background */
+    --button-text: #fff; /* Button text */
     --container-max-width: 800px;
     --container-padding: 20px;
 }
+
 
 html, body {
     margin: 0;
@@ -20,22 +21,14 @@ html, body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
 }
 
 main {
     flex-grow: 1;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: var(--light-gray);
-    color: var(--primary-color);
 }
 
 .container {
@@ -76,19 +69,35 @@ body {
     margin-bottom: 0 !important;
 }
 
-.button {
+button {
     background-color: var(--button-bg);
     color: var(--button-text);
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 12px; /* Rounded corners */
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.button:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: var(--secondary-color); /* Kahoot's orange */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+button:active {
+    transform: scale(0.95); /* Slight press effect */
+}
+
+/* Secondary Button Styles */
+.secondary-button {
+    background-color: #f2f2f2; /* Light gray for secondary buttons */
+    color: #333; /* Dark text */
+}
+
+.secondary-button:hover {
+    background-color: #e0e0e0; /* Slightly darker gray on hover */
 }
 
 a {

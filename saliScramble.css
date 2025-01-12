@@ -2,14 +2,341 @@
 /* Prevent horizontal overflow */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import 'global.css';
+
 /* Apply Inter font to all elements */
 body, h1, h2, h3, p, a, button, input {
     font-family: 'Inter', sans-serif;
 }
+
 html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/* Ensure all elements fit within the viewport */
+body {
+    background: linear-gradient(45deg, #d7c3ff, #ffece1, #ffdada, #e4d8fc); /* Kahoot-like colors */
+    background-size: 400% 400%; /* Larger background size for animation */
+    animation: gradientAnimation 10s ease infinite; /* Smooth gradient animation */
+    width: 100%;
+    max-width: 100vw; /* Ensure the body doesn't exceed the viewport width */
+    font-family: sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: #383838; /* Logo's dark gray color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+}
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%; /* Start position */
+    }
+    50% {
+        background-position: 100% 50%; /* Middle position */
+    }
+    100% {
+        background-position: 0% 50%; /* End position */
+    }
+}
+
+/* Header Styles */
+/* Header Styles */
+header {
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    display: flex;
+    align-items: center;
+    color: #333333; /* White text for contrast */
+    padding: 10px 20px; /* Consistent padding */
+    width: 100%;
+    margin-bottom: 20px; /* Consistent margin */
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Semi-bold for better readability */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 10px; /* Rounded corners */
+}
+
+header h1 {
+    margin-right: 10px; /* Space between logo and title */
+    font-size: 24px; /* Consistent font size */
+    font-weight: 700; /* Bold for emphasis */
+    letter-spacing: 0.5px; /* Slight spacing for elegance */
+}
+
+header p {
+    font-size: 18px; /* Consistent font size */
+    font-weight: 500; /* Medium weight for readability */
+}
+
+.logo-container {
+    margin-left: 20px;
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.logo {
+    width: 40px; /* Consistent size */
+    height: 40px;
+    border-radius: 50%; /* Circular logo */
+    object-fit: cover; /* Ensures the logo fits the container */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.logo:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Main Game Container */
+.container {
+    padding: auto;
+    margin-top: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    background-color: #d2e3fc;
+}
+
+/* Card and Container Styles */
+.container {
+    margin: 20px auto; /* Consistent margin */
+    padding: 20px; /* Consistent padding */
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 12px; /* Rounded corners */
+    max-width: 600px; /* Consistent max-width */
+    width: 90%; /* Responsive width */
+    transition: box-shadow 0.3s ease; /* Smooth shadow transition */
+}
+
+.container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Card Styles */
+.card {
+    background-color: #fff; /* White background */
+    padding: 20px; /* Consistent padding */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Game Elements */
+#game {
+    margin-top: 100px; /* Add margin to avoid overlapping with the header */
+}
+
+#roundDisplay {
+    font-size: 18px;
+    font-weight: bolder;
+    margin-top: -70px;
+}
+
+#definition {
+    background-color: #fff; /* White background */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    font-size: 2em;
+    color: #202124; /* Logo's dark gray color */
+    padding: 10px;
+    margin: 10px 0;
+    overflow: hidden; /* Hide overflow during animation */
+    max-height: 0; /* Start with no height */
+    opacity: 0; /* Start with opacity 0 */
+    transition: max-height 0.5s ease, opacity 0.5s ease; /* Smooth transition */
+}
+
+#definition.visible {
+    max-height: 200px; /* Adjust to fit your content */
+    opacity: 1; /* Fully visible */
+}
+
+#scrambledWord {
+    font-size: 3em;
+    font-weight: bold;
+    background-color: #fff; /* White background */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #383838; /* Logo's dark gray color */
+    padding: 10px;
+    margin: 10px auto; /* Reduced margin */
+    width: 100%; /* Adjust the width as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sentence {
+    font-size: 1.2em; /* Adjust font size for readability */
+    line-height: 1.6; /* Improve line spacing */
+    color: #383838; /* Logo's dark gray color */
+    margin: 20px 0;
+    text-align: center; /* Center the sentence */
+}
+
+/* Input Field Styles */
+input[type="text"] {
+    font-size: 16px; /* Consistent font size */
+    padding: 12px; /* Consistent padding */
+    margin: 10px 0; /* Consistent margin */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Consistent max-width */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+input[type="text"]:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1); /* Subtle focus shadow */
+}
+/* Buttons */
+button {
+    background-color: #fff;
+    color: #202124;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #f9f9f9; /* Slightly darker pink on hover */
+    transform: scale(1.03); /* Slight zoom effect on hover */
+}
+
+.toggle-button {
+    background-color: #6c757d;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-button:hover {
+    background-color: #5a6268;
+}
+
+.hint-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #202124;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hint-button:hover {
+    background-color: #f9f9f9;
+}
+
+.next-word-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff3131;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.next-word-button:hover {
+    background-color: #d50000;
+}
+
+/* Result Section */
+#result {
+    margin-top: 20px;
+    margin-bottom: 32px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#result span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.correct-word {
+    font-weight: bold;
+    color: green;
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%; /* Initial width */
+    height: 10px;
+    background-color: #4caf50; /* Green color */
+    transition: width 0.3s ease; /* Smooth transition */
+}
+
+#progress-text {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+/* Bot and Speech Bubble */
+#bot {
+    position: fixed;
+    bottom: 100px;
+    left: 50px;
+    width: 150px;
+    height: 150px;
+    background-image: url('images/bot/pedro.png'); /* Replace with your bot image path */
+    background-size: cover;
+    z-index: 1000; /* Ensure it's above other elements */
+    display: block; /* Ensure the bot is visible by default */
+    animation: bounce 5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+#speech-bubble {
+    position: absolute;
+    bottom: 150px;
+    right: 0;
+    width: 150px;
+    padding: 10px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+    display: none; /* Hidden by default */
+    font-size: 14px;
+    z-index: 1001; /* Ensure it's above the bot */
 }
 
 /* Modal Styles */
@@ -24,8 +351,6 @@ html, body {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
-
-/* Remove the .hidden class styling for the modal */
 
 .modal-content {
     background-color: #f5eeee; /* Match the game's background color */
@@ -65,344 +390,35 @@ html, body {
     text-decoration: none;
 }
 
+/* Hidden Class */
 .hidden {
     display: none;
 }
 
-#bot {
-    position: fixed;
-    bottom: 100px;
-    left: 50px;
-    width: 150px;
-    height: 150px;
-    background-image: url('images/bot/pedro.png'); /* Replace with your bot image path */
-    background-size: cover;
-    z-index: 1000; /* Ensure it's above other elements */
-    display: block; /* Ensure the bot is visible by default */
-}
-
-#speech-bubble {
-    position: absolute;
-    bottom: 150px;
-    right: 0;
-    width: 150px;
-    padding: 10px;
-    background: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    text-align: center;
-    display: none; /* Hidden by default */
-    font-size: 14px;
-    z-index: 1001; /* Ensure it's above the bot */
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-#bot {
-    animation: bounce 5s infinite;
-}
-
-/* Ensure all elements fit within the viewport */
-body {
-    width: 100%;
-    max-width: 100vw; /* Ensure the body doesn't exceed the viewport width */
-}
-
-body, h1, h2, h3, p, a, button, input {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: sans-serif;
-    line-height: 1.6;
-    background-color: #f2f2f2;
-    color: #383838; /* Logo's dark gray color */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
-}
-
-.container {
-    margin-top: 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-    background-color: #f5eeee;
-}
-
-.white {
-    margin-top: 5em;
-    size: 10em;
-}
-
-header {
-    display: flex;
-    align-items: center;
-    background-color: #333; /* Logo's blue color */
-    color: #fff;
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 10px;
-    font-family: sans-serif;
-    font-weight: bolder;
-}
-
-header h1 {
-    margin-right: 10px; /* Space between logo and title */
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: bolder;
-}
-
-header p {
-    font-size: 18px;
-}
-
-.logo-container {
-    margin-left: 20px;
-    margin-right: 10px; /* Space between logo and title */
-}
-
-.logo {
-    width: 40px; /* Adjust size as needed */
-    height: 40px;
-    border-radius: 5%; /* Makes the logo circular */
-    object-fit: cover; /* Ensures the logo fits the container */
-}
-
-button {
-    background-color: #ef6589; /* Logo's pink color */
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 10px 0;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: #d64c75; /* Slightly darker pink on hover */
-    transform: scale(1.03); /* Slight zoom effect on hover */
-}
-
-.toggle-button {
-    background-color: #6c757d;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.toggle-button:hover {
-    background-color: #5a6268;
-}
-
-#game {
-    margin-top: 100px; /* Add margin to avoid overlapping with the header */
-}
-
-#roundDisplay {
-    font-size: 18px;
-    font-weight: bolder;
-    margin-top: -70px
-}
-
-/* Add smooth transition for the hint */
-#definition {
-    background-color: #fff; /* White background */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    font-size: 1.2em;
-    color: #383838; /* Logo's dark gray color */
-    padding: 10px;
-    margin: 10px 0;
-    overflow: hidden; /* Hide overflow during animation */
-    max-height: 0; /* Start with no height */
-    opacity: 0; /* Start with opacity 0 */
-    transition: max-height 0.5s ease, opacity 0.5s ease; /* Smooth transition */
-}
-
-#definition.visible {
-    max-height: 200px; /* Adjust to fit your content */
-    opacity: 1; /* Fully visible */
-}
-
-#scrambledWord {
-    font-size: 2em;
-    font-weight: bold;
-    background-color: #fff; /* White background */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #383838; /* Logo's dark gray color */
-    padding: 10px;
-    margin: 20px auto; /* Center the box horizontally */
-    width: 300px; /* Adjust the width as needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#sentence {
-    font-size: 1.2em; /* Adjust font size for readability */
-    line-height: 1.6; /* Improve line spacing */
-    color: #383838; /* Logo's dark gray color */
-    margin: 20px 0;
-    text-align: center; /* Center the sentence */
-}
-
-.correct-word {
-    font-weight: bolder;
-    color: green;
-}
-
-input[type="text"] {
-    font-size: 1.125em;
-    text-align: center;
-    padding: 10px;
-    margin: 20px auto; /* Center the box horizontally */
-    width: 300px; /* Adjust the width as needed */
-    border-radius: 5px;
-    background-color: #fff; /* White background */
-    color: #383838; /* Logo's dark gray color */
-    text-transform: uppercase;
-    outline: none; /* Remove the black border */
-}
-
-input[type="text"]:focus {
-    outline: none !important; /* Remove the black border */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Add a subtle shadow for focus indication */
-}
-
-.guess-row {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Smaller gap between letter boxes */
-    margin: 20px 0;
-}
-
-.letter-box {
-    width: 60px; /* Larger size */
-    height: 60px; /* Larger size */
-    text-align: center;
-    line-height: 60px; /* Adjust line-height to match height */
-    font-size: 1.5em; /* Larger font size */
-    font-weight: bold;
-    border: 2px solid #202020; /* Logo's blue color */
-    border-radius: 5px;
-    background-color: #fff; /* White background */
-    color: #383838; /* Logo's dark gray color */
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.letter-box.correct {
-    background-color: #6aaa64;
-}
-
-.letter-box.wrong-position {
-    background-color: #c9b458;
-}
-
-.letter-box.wrong {
-    background-color: #3a3a3c;
-}
-
-#result {
-    margin-top: 20px;
-    margin-bottom: 32px;
-    font-size: 1em;
-    font-weight: bold;
-}
-
-#result span {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.correct-word {
-    font-weight: bold;
-    color: green;
-}
-
-/*
-#nextWord {
-    display: none !important;
-}
-*/
-.hidden {
-    display: none;
-}
-
-.back-button{
+/* Back Button */
+.back-button {
     padding-top: 30px;
     font-family: sans-serif;
-    color: #ef6589; /* Logo's pink color */
+    color: #202124; /* Logo's pink color */
     text-decoration: none;
 }
 
-.back-button:hover{
-    color: #4a148c; /* Logo's pink color */
+.back-button:hover {
+    color: #202124; /* Logo's pink color */
     text-decoration: none;
 }
 
-.hint-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #5e17eb;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.hint-button:hover {
-    background-color: #4a148c;
-}
-
-.next-word-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #ff3131;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.next-word-button:hover {
-    background-color: #d50000;
-}
-
-.result-section {
-    margin-top: 20px;
-    font-weight: bold;
-    color: #333;
-}
-
+/* Footer Styles */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
     text-align: center;
-    padding: 10px 20px;
+    padding: 15px 20px; /* Consistent padding */
     width: 100%;
-    margin-top: auto; /* Push the footer to the bottom */
+    margin-top: auto; /* Push footer to the bottom */
+    font-size: 14px; /* Consistent font size */
+    font-weight: 500; /* Medium weight for readability */
 }
-
 /* Minimalistic Scrollbar */
 ::-webkit-scrollbar {
     width: 8px; /* Width of the scrollbar */
@@ -421,20 +437,34 @@ footer {
     background: #555; /* Darker color on hover */
 }
 
+/* Subtle Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-    .container{
+    .container {
         width: 95%;
-    }
-    .letter-box {
-        width: 50px; /* Slightly smaller on smaller screens */
-        height: 50px;
-        line-height: 50px;
-        font-size: 1.2em;
     }
 
     #speech-bubble {
         position: absolute;
-        bottom: 80px;
+        bottom: 100px;
         right: 0;
         width: 80px;
         padding: 10px;
@@ -449,31 +479,11 @@ footer {
 
     #bot {
         position: fixed;
-        bottom: 80px;
+        bottom: 35px;
         right: 10px;
-        width: 80px;
-        height: 80px;
+        width: 95px;
+        height: 95px;
         background-size: cover;
         z-index: 1000; /* Ensure it's above other elements */
     }
-}
-
-@keyframes flip-in {
-    0% {
-        transform: rotateX(90deg);
-        background-color: transparent;
-        color: transparent;
-    }
-    50% {
-        background-color: #fff;
-    }
-    100% {
-        transform: rotateX(0deg);
-        background-color: inherit;
-        color: inherit;
-    }
-}
-
-.flip-in {
-    animation: flip-in 0.6s ease-in-out;
 }

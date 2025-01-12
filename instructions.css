@@ -1,0 +1,167 @@
+/* Import Google Font and Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import 'global.css';
+
+/* Apply Inter font to all elements */
+body, h1, h2, h3, p, a, button, input {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Prevent horizontal overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Prevent horizontal overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Animated Game Background */
+body {
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #76629f, #f3e3da, #ffef96, #5e17eb); /* Kahoot-like colors */
+    background-size: 400% 400%; /* Larger background size for animation */
+    animation: gradientAnimation 10s ease infinite; /* Smooth gradient animation */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%; /* Start position */
+    }
+    50% {
+        background-position: 100% 50%; /* Middle position */
+    }
+    100% {
+        background-position: 0% 50%; /* End position */
+    }
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    color: #333; /* Dark text for contrast */
+    padding: 10px 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px; /* Rounded bottom corners */
+    z-index: 1; /* Ensure it's above the background */
+}
+header h1 {
+    margin-right: 10px; /* Space between logo and title */
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bolder;
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+header p {
+    font-size: 18px;
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.logo-container {
+    margin-left: 20px;
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.logo {
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+    border-radius: 5%; /* Makes the logo circular */
+    object-fit: cover; /* Ensures the logo fits the container */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.logo:hover {
+    transform: scale(1.1); /* Logo scales up on hover */
+}
+
+/* Instructions Container */
+.instructions-container {
+    letter-spacing: .5px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    text-align: center;
+    width: 500px;
+    height: 500px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.instructions-container:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+.instructions-container h2 {
+    color: var(--primary-color); /* Kahoot's purple */
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.instructions-container ol {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--dark-gray); /* Dark text */
+    padding-left: 20px;
+}
+
+.instructions-container ol li {
+    margin-bottom: 10px;
+}
+
+/* Play Now Button */
+#play-now {
+    background-color: var(--primary-color); /* Kahoot's purple */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#play-now:hover {
+    background-color: var(--secondary-color); /* Kahoot's orange */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--primary-color); /* Kahoot's purple */
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    width: 100%;
+    margin-top: auto;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 12px 12px 0 0; /* Rounded top corners */
+}

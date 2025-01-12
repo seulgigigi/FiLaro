@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikaBlanks Instructions</title>
+    <link rel="stylesheet" href="instructions.css">
+    <link rel="icon" href="icons/wb500.png" sizes="500x500" type="image/png">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="icons/wb500.png" alt="WikaBlanks Logo" class="logo">
+        </div>
+        <h1>WikaBlanks Instructions</h1>
+    </header>
+    <main>
+        <div class="instructions-container">
+            <h2>How to Play WikaBlanks</h2>
+            <ol>
+                <li><strong>Read the Sentence:</strong> A sentence with a blank will appear on the screen.</li>
+                <li><strong>Choose the Correct Word:</strong> Select the correct word from the four choices provided to fill in the blank.</li>
+                <li><strong>Submit Your Answer:</strong> Click on the word you think is correct.</li>
+                <li><strong>See the Result:</strong> You'll see if your answer is correct or wrong, along with the definition of the correct word.</li>
+                <li><strong>Next Sentence:</strong> Click "Next" to move to the next sentence.</li>
+                <li><strong>Complete the Game:</strong> Finish all 10 sentences to see your final score!</li>
+            </ol>
+            <button id="play-now" onclick="redirectToWikaBlanks()">Play Now</button>
+        </div>
+    </main>
+
+
+    <script>
+        function redirectToWikaBlanks() {
+            window.location.href = "wikaBlanks.html"; // Redirect to the WikaBlanks game page
+        }
+    </script>
+</body>
+</html>

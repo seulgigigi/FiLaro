@@ -12,6 +12,45 @@ html, body {
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
+/* Prevent horizontal overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+header, footer  { 
+    backdrop-filter: blur(10px); /* Blur effect for glass-like appearance */
+}
+
+body {
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #d7c3ff, #ffe2d1, #ffdada, #5e17eb); /* Kahoot-like colors */
+    background-size: 400% 400%; /* Larger background size for animation */
+    animation: gradientAnimation 10s ease infinite; /* Smooth gradient animation */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Ensure child elements are positioned relative to the body */
+    overflow: hidden; /* Prevent overflow */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%; /* Start position */
+    }
+    50% {
+        background-position: 100% 50%; /* Middle position */
+    }
+    100% {
+        background-position: 0% 50%; /* End position */
+    }
+}
+
+
 #avatar-modal {
     display: none; /* Hidden by default */
     position: fixed;
@@ -119,25 +158,29 @@ body {
 header {
     display: flex;
     align-items: center;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    color: #333; /* Dark text for contrast */
+    padding: 10px 20px;
     width: 100%;
-    margin-bottom: 10px;
-    font-family: sans-serif;
-    font-weight: bolder;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px; /* Rounded bottom corners */
+    z-index: 1; /* Ensure it's above the background */
 }
 
 header h1 {
     margin-right: 10px; /* Space between logo and title */
-    letter-spacing: .5px;
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: bolder;
+    font-size: 24px; /* Consistent font size */
+    font-weight: 700; /* Bold for emphasis */
+    letter-spacing: 0.5px; /* Slight spacing for elegance */
 }
 
 header p {
-    font-size: 18px;
+    font-size: 18px; /* Consistent font size */
+    font-weight: 500; /* Medium weight for readability */
 }
 
 .logo-container {
@@ -146,10 +189,15 @@ header p {
 }
 
 .logo {
-    width: 40px; /* Adjust size as needed */
+    width: 40px; /* Consistent size */
     height: 40px;
-    border-radius: 5%; /* Makes the logo circular */
+    border-radius: 50%; /* Circular logo */
     object-fit: cover; /* Ensures the logo fits the container */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.logo:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
 }
 
 main {
@@ -159,8 +207,10 @@ main {
     justify-content: center;
     width: 100%;
     flex-grow: 1; /* Allow the main content to grow and take up remaining space */
+    z-index: 1; /* Ensure it's above the background */
 }
 
+/* Game Modes Container */
 .game-modes {
     display: flex;
     justify-content: center;
@@ -168,37 +218,52 @@ main {
     gap: 50px;
     margin-bottom: 90px;
     width: 100%;
+    padding: 20px;
+    border-radius: 12px; /* Rounded corners */
+    z-index: 1; /* Ensure it's above the background */
+    background: transparent; /* Make the background transparent */
+    backdrop-filter: none; /* Remove blur effect */
 }
-
 /* Common styles for both game modes */
 .game-mode1, .game-mode2 {
     letter-spacing: .5px;
     border-radius: 10px;
     text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 20px; /* Reduced padding for better fit */
-    text-align: center;
-    width: 300px; /* Fixed width for each game mode */
-    height: 320px;
-    transition: transform 0.1s ease; /* Smooth transition for hover effect */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+    height: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Specific background colors for each game mode */
-.game-mode1 {
-    background-color: #b4a8ff;
+
+
+.game-mode1:hover, .game-mode2:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
 }
 
-.game-mode2 {
-    background-color: #feb94a;
+.laro {
+    background-color: var(--secondary-color); /* Kahoot's orange */
+    color: white;
+    border-radius: 12px; /* Rounded corners */
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .laro:hover {
-    transform: scale(1.03); /* Enlarge the game mode on hover */
-    transition: transform 0.3s ease;
+    background-color: var(--accent-color); /* Kahoot's red */
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .game-mode h2 {
@@ -240,14 +305,21 @@ main {
     object-fit: cover; /* Ensures the image fits the container */
 }
 
+/* Footer Styles */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    color: #333; /* Dark text for contrast */
     text-align: center;
-    padding: 10px 20px;
+    padding: 15px 20px;
     width: 100%;
-    margin-top: auto; /* Push the footer to the bottom */
+    margin-top: auto;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 12px 12px 0 0; /* Rounded top corners */
+    z-index: 1; /* Ensure it's above the background */
 }
+
 
 .laro {
     display: block;
@@ -281,6 +353,25 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555; /* Darker color on hover */
+}
+
+/* Subtle Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease;
 }
 
 /* Responsive Design */
@@ -348,10 +439,10 @@ footer {
 
     #bot {
         position: fixed;
-        bottom: 80px;
+        bottom: 40px;
         right: 10px;
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         background: url('bot/pedro.png') no-repeat;
         background-size: cover;
         z-index: 1000; /* Ensure it's above other elements */

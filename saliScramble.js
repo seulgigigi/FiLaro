@@ -7,55 +7,164 @@ let maxAttempts = 2; // Reduced to 2 attempts
 let difficultyLevel = 1; // Default difficulty level (1 = Easy, 2 = Medium, 3 = Hard)
 let score = 0; // Track the user's score
 let round = 0; // Track the current round
-const maxRounds = 5; // 5 words per session
+let reshuffleUsed = false; // Track if reshuffle has been used for the current word
+const maxRounds = 10; // 10 words per session
+let usedWords = []; // Track used words for the current session
 
 // Hardcoded word list for SALITA mode
 const words = [
-    // Easy (5 letters or less)
-    { word: "SIKLAB", definition: "Biglaang pagsiklab ng apoy o emosyon", sentence: "Ang <span class='blank'>_____</span> ay nangyayari nang bigla." },
-    { word: "PANTAS", definition: "Matalinong tao", sentence: "Siya ay isang <span class='blank'>_____</span> sa kanyang klase." },
-    { word: "DUYOG", definition: "Paglalaho ng araw o buwan", sentence: "Ang <span class='blank'>_____</span> ng buwan ay nagbigay ng kasiyahan sa mga tao." },
-    { word: "HIMIG", definition: "Melodiya o tunog", sentence: "Ang <span class='blank'>_____</span> ng awit ay nakakakilig." },
-    { word: "SIMSIM", definition: "Dahan-dahang pag-inom upang malasahan", sentence: "Ang <span class='blank'>_____</span> ng tubig ay nakakapagpalain." },
-    { word: "LUMBAY", definition: "Malalim na kalungkutan", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkawala." },
-    { word: "PINID", definition: "Pagsasara ng pintuan o bintana", sentence: "Ang <span class='blank'>_____</span> ng bintana ay nagbigay ng kaginhawahan." },
-    { word: "BUGHAW", definition: "Kulay asul (gamit sa tula o malikhain)", sentence: "Ang <span class='blank'>_____</span> na langit ay napakaganda." },
-    { word: "WAGAS", definition: "Malinis walang kapintasan at walang hanggan", sentence: "Ang <span class='blank'>_____</span> na pag-ibig ay hindi madaling makuha." },
-    { word: "AGOS", definition: "Pagdaloy ng tubig o hangin sa isang direksyon", sentence: "Ang <span class='blank'>_____</span> ng ilog ay nakakapagpalain." },
-
-    // Medium (6-7 letters)
-    { word: "HAPIL", definition: "Malupit na pagkatalo", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkatalo." },
-    { word: "DIWA", definition: "Kaluluwa o espiritu", sentence: "Ang <span class='blank'>_____</span> ng tao ay mahalaga." },
-    { word: "GUNITA", definition: "Alaala o memorya", sentence: "Ang <span class='blank'>_____</span> ng kanyang ama ay hindi madaling makalimutan." },
-    { word: "HILOM", definition: "Tahimik na pagpapagaling", sentence: "Ang <span class='blank'>_____</span> ng kalikasan ay nakakapagpalain." },
-    { word: "LAKIP", definition: "Kasama o kalakip", sentence: "Ang <span class='blank'>_____</span> ng mga dokumento ay mahalaga." },
-    { word: "LIRIP", definition: "Unang liwanag ng umaga", sentence: "Ang <span class='blank'>_____</span> ng araw ay nagbigay ng kasiyahan." },
-    { word: "LINGAP", definition: "Pag-aaruga o pag-aalaga", sentence: "Ang <span class='blank'>_____</span> ng mga magulang ay hindi madaling makuha." },
-    { word: "LUKTOS", definition: "Pagbaluktot ng papel o dahon", sentence: "Ang <span class='blank'>_____</span> ng papel ay nakakapagpalain." },
-    { word: "MUTYA", definition: "Mahalagang hiyas o perlas", sentence: "Ang <span class='blank'>_____</span> ng dagat ay napakaganda." },
-    { word: "PAGKIT", definition: "Pandikit o pantali", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-
-    // Hard (8+ letters)
-    { word: "PAGOD", definition: "Kapaguran o hingal", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagod." },
-    { word: "PANATA", definition: "Pangako o sumpa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay hindi madaling makuha." },
-    { word: "PUGAY", definition: "Paggalang o pagbati", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "RIKIT", definition: "Kagandahan o kariktan", sentence: "Ang <span class='blank'>_____</span> ng mga tanawin ay napakaganda." },
-    { word: "SALIK", definition: "Elemento o sangkap", sentence: "Ang <span class='blank'>_____</span> ng mga bagay ay mahalaga." },
-    { word: "SINAG", definition: "Liwanag na nanggagaling sa araw", sentence: "Ang <span class='blank'>_____</span> ng araw ay nagbigay ng kasiyahan." },
-    { word: "SIPING", definition: "Nasa tabi o malapit", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TAGURI", definition: "Titulo o palayaw", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TALA", definition: "Bituin o pangalan", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
-    { word: "TALAS", definition: "Katalasan ng isip", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "AGOS", definition: "Ang paglipat-lipat ng tubig o hangin sa isang partikular na direksyon", sentence: "Ang <span class='blank'>_____</span> ng ilog ay nakakapagpalain." },
+    { word: "HIMIG", definition: "Ang tunog o melody na nararanasan sa musika", sentence: "Ang <span class='blank'>_____</span> ng awit ay nakakakilig." },
+    { word: "DUYOG", definition: "Proseso ng paglalaho o pagtatago ng araw o buwan", sentence: "Ang <span class='blank'>_____</span> ng buwan ay nagbigay ng kasiyahan sa mga tao." },
+    { word: "PINID", definition: "Proseso ng pagsasara o pagsalakay ng isang bagay", sentence: "Ang <span class='blank'>_____</span> ng bintana ay nagbigay ng kaginhawahan." },
+    { word: "BUGHAW", definition: "Kulay asul na ginagamit sa tula o malikhain na uri", sentence: "Ang <span class='blank'>_____</span> na langit ay napakaganda." },
+    { word: "WAGAS", definition: "Epekto ng malinis at walang hanggan na pag-ibig", sentence: "Ang <span class='blank'>_____</span> na pag-ibig ay hindi madaling makuha." },
+    { word: "LUMBAY", definition: "Matinding kalungkutan o kaguluhan sa loob", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkawala." },
+    { word: "SIKLAB", definition: "Biglang pag-usbong o paglalabas ng apoy o emosyon", sentence: "Ang <span class='blank'>_____</span> ay nangyayari nang bigla." },
+    { word: "PANTAS", definition: "Tao na may matalinong isip at makakagawa ng mabuting desisyon", sentence: "Siya ay isang <span class='blank'>_____</span> sa kanyang klase." },
+    { word: "SIMSIM", definition: "Proseso ng dahan-dahang pag-inom para malasahan", sentence: "Ang <span class='blank'>_____</span> ng tubig ay nakakapagpalain." },
+    { word: "HAPIL", definition: "Malupit at matagal na pagkatalo", sentence: "Nakaramdam ng <span class='blank'>_____</span> siya matapos ang kanyang pagkatalo." },
+    { word: "DIWA", definition: "Espiritwal na parte ng tao o kaluluwa", sentence: "Ang <span class='blank'>_____</span> ng tao ay mahalaga." },
+    { word: "GUNITA", definition: "Alaala o talaan ng nakaraang karanasan", sentence: "Ang <span class='blank'>_____</span> ng kanyang ama ay hindi madaling makalimutan." },
+    { word: "HILOM", definition: "Proseso ng tahimik at natural na pagpapagaling", sentence: "Ang <span class='blank'>_____</span> ng kalikasan ay nakakapagpalain." },
+    { word: "LAKIP", definition: "Bagay o tao na nasa loob o kasama sa isang grupo", sentence: "Ang <span class='blank'>_____</span> ng mga dokumento ay mahalaga." },
+    { word: "LIRIP", definition: "Unang liwanag o aurora ng umaga", sentence: "Ang <span class='blank'>_____</span> ng araw ay nagbigay ng kasiyahan." },
+    { word: "LINGAP", definition: "Pag-aalaga o pagpapahalaga sa kailangan", sentence: "Ang <span class='blank'>_____</span> ng mga magulang ay hindi madaling makuha." },
+    { word: "LUKTOS", definition: "Proseso ng pagbaluktot o pagkukulat ng papel", sentence: "Ang <span class='blank'>_____</span> ng papel ay nakakapagpalain." },
+    { word: "MUTYA", definition: "Mahalagang hiyas o simbolo ng kagandahan", sentence: "Ang <span class='blank'>_____</span> ng dagat ay napakaganda." },
+    { word: "PAGKIT", definition: "Pandikit o relasyon sa pagitan ng mga tao", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay nakakapagpalain." },
+    { word: "Ito", definition: "Panghalip na nagpapakita o nangangailangan ng isang malapit na bagay", sentence: "Ito ang libro na ginagamit ko sa aking klase." },
+    { word: "Oo", definition: "Pangwakas na pagpapakita ng pagkakasundo o pagpapatotoo", sentence: "Kailangan ba ng tulong? Oo, sige." },
+    { word: "Hindi", definition: "Pangwakas na pagpapakita ng pagtanggi o pagtukoy ng hindi totoo", sentence: "Gusto mo ba ng tsokolate? Hindi, salamat." },
+    { word: "Gusto", definition: "Pagpapahayag ng kagustuhan o pagpapahayag ng pagninilay", sentence: "Gusto ko ang mga mansanas." },
+    { word: "Tama", definition: "Nakapaghihiwalay o tumpak na tumpak", sentence: "Ang sagot ay tama." },
+    { word: "Totoo", definition: "Katotohanan o sandaling totoo", sentence: "Ang kuwento ay totoo." },
+    { word: "Libre", definition: "Walang bayad o hindi may limitasyon", sentence: "Ang serbisyo ay libre." },
+    { word: "Kamay", definition: "Bahagi ng katawan na ginagamit para sa paghahatid ng mga bagay", sentence: "Magandang kamay mo." },
+    { word: "Kailangan", definition: "Pangangailangan o kailangang bagay", sentence: "Kailangan ko ng isang kape." },
+    { word: "Eleksyon", definition: "Prosesong pambansa o lokal para pumili ng opisyal", sentence: "Ang eleksyon ay mahalaga sa demokrasya." },
+    { word: "Pagbabago", definition: "Proseso ng pag-alis at pagdagdag ng bagay o ideya", sentence: "Ang pagbabago ay kailangan ng panahon." },
+    { word: "Dyaryo", definition: "Pamahayagang pampubliko na naglalathala ng balita at impormasyon", sentence: "Nagbabasa ako ng dyaryo sa umaga." },
+    { word: "Balita", definition: "Mga kaugnayang impormasyon o kwento", sentence: "Ang balita ay nakakagulat." },
+    { word: "Salamat", definition: "Pagsasabi ng pasasalamat o pagpapakahulugan", sentence: "Salamat sa tulong mo." },
+    { word: "Magturo", definition: "Proseso ng pagtuturong nagbibigay ng kaalaman", sentence: "Gusto ko magturo sa mga bata." },
+    { word: "Kompyuter", definition: "Elektronikong makina para sa pagproseso ng datos", sentence: "Ginagamit ko ang kompyuter sa aking trabaho." },
+    { word: "Basahin", definition: "Proseso ng pagbasa o pagtuturo", sentence: "Gusto ko magbasa ng mga nobela." },
+    { word: "Libro", definition: "Aklat na naglalaman ng impormasyon o kwento", sentence: "Mayroon akong isang libro tungkol sa kasaysayan." },
+    { word: "Lapis", definition: "Bagay na ginagamit para mag-inscribe o magtala", sentence: "Ginagamit ko ang lapis para sa pagrereport." },
+    { word: "Paglalakbay", definition: "Proseso ng paglalakbay o paghahatid sa ibang lugar", sentence: "Gusto ko maglakbay sa ibang bansa." },
+    { word: "Kapit-bahay", definition: "Tao na nangunguna sa kapitbahayan", sentence: "Ang aking kapit-bahay ay mabait." },
+    { word: "Pumatay", definition: "Aktong nagresulta sa kagat ng buhay", sentence: "Ang pumatay ng tao ay hindi tama." },
+    { word: "Kumilos", definition: "Aksyon ng pagkilos o paggalaw", sentence: "Kailangan kumilos ngayon." },
+    { word: "Halimbawa", definition: "Uri o ekemplo na nagpapakita ng ideya", sentence: "Ito ay isang halimbawa ng pangungusap." },
+    { word: "Digmaan", definition: "Kapangyarihan o paglalaban sa pagitan ng magkaiba", sentence: "Ang digmaan ay nakakasira ng buhay." },
+    { word: "Patay", definition: "Nakakahawa o walang buhay", sentence: "Ang hayop ay patay." },
+    { word: "Takot", definition: "Emosyong nagpapakilala ng pag-iwan o pagkawala", sentence: "Nakaramdam ng takot siya sa gabi." },
+    { word: "Maglaro", definition: "Aksyon ng paglalaro o pagtutugma", sentence: "Gusto ko maglaro ng basketbol." },
+    { word: "Mabagal", definition: "Nakakahawa o mahina", sentence: "Ang kotse ay mabagal sa daan." },
+    { word: "Malakas", definition: "May malakas na enerhiya o kakayahan", sentence: "Ang tunog ay malakas." },
+    { word: "Malaki", definition: "May malaking sukat o dimsyon", sentence: "Ang bahay ay malaki." },
+    { word: "Masarap", definition: "May magandang lasa o gustong kainin", sentence: "Ang pagkain ay masarap." },
+    { word: "Saan", definition: "Pangwakas na nagpapakita ng lugar", sentence: "Saan ka pupunta?" },
+    { word: "Ngiti", definition: "Mukhang nagpapakita ng kagandahang-loob", sentence: "May ngiti ang mukha niya." },
+    { word: "Pag-ibig", definition: "Sentro ng kasing-kasing at pagpapaligay", sentence: "Ang pag-ibig ay mahalaga sa buhay." },
+    { word: "Bakit", definition: "Pangwakas na nagpapakita ng dahilan", sentence: "Bakit hindi mo ginawa ang trabaho?" },
+    { word: "Paano", definition: "Pangwakas na nagpapakita ng paraan o estilo", sentence: "Paano mo ginawa ang bagay?" },
+    { word: "Kailan", definition: "Pangwakas na nagpapakita ng panahon", sentence: "Kailan mo ginawa ang bagay?" },
+    { word: "Taba", definition: "May malaking sukat o mahaba", sentence: "Ang bata ay may taba." },
+    { word: "Buhok", definition: "Naglalapit na parte ng katawan", sentence: "Ang buhok niya ay mahaba." },
+    { word: "Bangko", definition: "Institusyon o lugar para sa pera", sentence: "Ginagamit ko ang bangko para sa aking pangangailangan sa pera." },
+    { word: "Pera", definition: "Salapi o halaga para sa pagbili", sentence: "Kailangan ko ng pera para sa pagbili." },
+    { word: "Amoy", definition: "Naglalapit na odor o lasa", sentence: "Ang amoy ng pagkain ay maaliwalas." },
+    { word: "Kalsada", definition: "Lugar para sa paglalakbay ng sasakyan", sentence: "Ang kalsada ay malinis." },
+    { word: "Ulan", definition: "Mga alabok ng tubig mula sa langit", sentence: "Nag-ulan ngayong umaga." },
+    { word: "Kama", definition: "Gamit para sa pagtulog", sentence: "Ginagamit ko ang kama para magtulog." },
+    { word: "Kumain", definition: "Aksyon ng pagkakain o pag-inom", sentence: "Gusto ko kumain ng manok." },
+    { word: "Asukal", definition: "Gamit para sa pagtanghal o pagluto", sentence: "Ginagamit ang asukal para sa pagluto." },
+    { word: "Itlog", definition: "Produkto ng ibon para sa pagluto", sentence: "Ginagamit ang itlog para sa pagluto ng tokwa't baboy." },
+    { word: "Tinapay", definition: "Pagkain na ginagamit sa sandwich", sentence: "Ginagamit ang tinapay para sa sandwich." },
+    { word: "Gatas", definition: "Lakbay para sa pagluto ng tsokolate", sentence: "Ginagamit ang gatas para sa pagluto ng tsokolate." },
+    { word: "Yelo", definition: "Tubig na nakabugo para sa pagluto ng refreskante", sentence: "Ginagamit ang yelo para sa pagluto ng refreskante." },
+    { word: "Puso", definition: "Central na bahagi ng katawan", sentence: "Ang puso ay mahalaga sa katawan." },
+    { word: "Dugo", definition: "Tubig na nakakahawa para sa pagpapaligta ng oksiheno", sentence: "Ang dugo ay nakakatulong sa pagpapaligta ng oksiheno." },
+    { word: "Tag-araw", definition: "Peryodong mainit na panahon", sentence: "Ang tag-araw ay mainit." },
+    { word: "Bumili", definition: "Aksyon ng pagbili o pagkuha ng bagay", sentence: "Gusto ko bumili ng isang bag." },
+    { word: "Tindahan", definition: "Lugar para sa pagbili ng mga gamit", sentence: "Ginagamit ko ang tindahan para sa pagbili ng mga gamit." },
+    { word: "Magtanong", definition: "Aksyon ng pagtatanong o paghahanap ng impormasyon", sentence: "Gusto ko magtanong tungkol sa produkto." },
+    { word: "Tumakbo", definition: "Aksyon ng pagtakbo o paggalaw", sentence: "Gusto ko tumakbo sa umaga." },
+    { word: "Sulat", definition: "Mga salita o impormasyon na naitulat", sentence: "Ginagamit ko ang sulat para sa pagpapahayag ng aking mga damdamin." },
+    { word: "Malamig", definition: "Naglalapit na temperatura o kondisyon", sentence: "Ang lugar ay malamig." },
+    { word: "Lupa", definition: "Gitnang bahagi ng planeta para sa paglago ng plants", sentence: "Ang lupa ay mahalaga para sa paglago ng plants." },
+    { word: "Taglamig", definition: "Peryodong malamig na panahon", sentence: "Ang taglamig ay lamig." },
+    { word: "Umakyat", definition: "Aksyon ng pagtataas o paglalakbay sa bundok", sentence: "Gusto ko umakyat ng bundok." },
+    { word: "Burol", definition: "Naglalapit na malawak na tanawin", sentence: "Ang burol ay may magandang tanawin." },
+    { word: "Salamin", definition: "Gamit para sa pagtingin sa sarili", sentence: "Ginagamit ang salamin para sa pagtingin sa sarili." },
+    { word: "Damo", definition: "Luntiang nabubuhay sa ibabaw ng lupa", sentence: "Ang damo ay lunti." },
+    { word: "Trabaho", definition: "Aktibidad para sa pagkain o sustento", sentence: "Ang trabaho ay mahalaga para sa pagkain." },
+    { word: "Klase", definition: "Grupong nag-aaral o nagtuturo", sentence: "Ang klase ay may mahusay na mga mag-aaral." },
+    { word: "Kanta", definition: "Musikal na komposisyon o awit", sentence: "Ang kanta ay nakakakilig." },
+    { word: "Tunog", definition: "Naglalapit na pagkakasalita o pagkakasalita", sentence: "Ang tunog ay malakas." },
+    { word: "Pagbisita", definition: "Aksyon ng pagbabisita o paghahanap ng tao", sentence: "Gusto ko magbisita sa mga kaibigan ko." },
+    { word: "Malambot", definition: "May sukat na halaman o tissu", sentence: "Ang tela ay malambot." },
+    { word: "Saya", definition: "Naglalapit na kasing-kasing o pagpapaligay", sentence: "Ang paglalaro ay nakakasaya." },
+    { word: "Milyon", definition: "Bagay na may isang milyong sandali", sentence: "Mayroon akong isang milyon na mga sandali." },
+    { word: "Mayaman", definition: "May malaking pera o gamit", sentence: "Ang tao ay mayaman." },
+    { word: "Eroplano", definition: "Mga sasakyan sa himpapawid para sa paglalakbay", sentence: "Ginagamit ang eroplano para sa paglalakbay." },
+    { word: "Mundo", definition: "Kapaligiran o buong yerra", sentence: "Ang mundo ay mahalaga sa lahat ng tao." },
+    { word: "Sumbrero", definition: "Gamit para sa pagprotektahan mula sa araw", sentence: "Ginagamit ang sumbrero para sa pagprotektahan sa araw." },
+    { word: "Trak", definition: "Gamit para sa pagpapadala ng mga bagay", sentence: "Ang trak ay ginagamit para sa pagpapadala ng mga bagay." },
+    { word: "Ilong", definition: "Bahagi ng katawan na naglalapit sa paghahalat", sentence: "Ang ilong ay mahalaga para sa paghahalat." },
+    { word: "Pakinggan", definition: "Aksyon ng pagpakinggan o pagtunton", sentence: "Kailangan kong pakinggan ang awit." },
+    { word: "Makinig", definition: "Aksyon ng pagtunton o pag-aalala", sentence: "Gusto ko makinig sa musika." },
+    { word: "Bahay", definition: "Lugar para sa pamilya o kapamilya", sentence: "Ang bahay ay mahalaga para sa pamilya." },
+    { word: "Larawan", definition: "Gamit para sa pagtuklas o pag-istorya", sentence: "Gusto ko maglarawan ng isang tanawin." },
+    { word: "Atin", definition: "Panghalip na nagpapakita ng pagkakasama", sentence: "Atin ang bahay na ito." },
+    { word: "Amin", definition: "Panghalip na nagpapakita ng pagkakasama", sentence: "Amin ang bahay na ito." },
+    { word: "Sarili", definition: "Kapwa o tungkulin sa pagiging tao", sentence: "Ang sarili ay mahalaga." },
+    { word: "Malapit", definition: "Naglalapit na distansya o relasyon", sentence: "Ang tao ay malapit sa akin." },
+    { word: "Langit", definition: "Naglalapit na lugar sa himpapawid", sentence: "Ang langit ay azul." },
+    { word: "Bayaran", definition: "Aksyon ng pagbabayad o pagtanggap ng pera", sentence: "Kailangan magbayad para sa serbisyo." },
+    { word: "Magbayad", definition: "Aksyon ng pagbabayad o pagtanggap ng pera", sentence: "Kailangan magbayad para sa serbisyo." },
+    { word: "Orasan", definition: "Gamit para sa pagtatantiya ng oras", sentence: "Ginagamit ang orasan para sa pagtatantiya ng oras." },
+    { word: "Radyo", definition: "Gamit para sa pagtanggap ng balita o musika", sentence: "Ginagamit ang radyo para sa pagtanggap ng balita." },
+    { word: "Singsing", definition: "Hiyas para sa pagtanghal o proteksyon", sentence: "Ang singsing ay mahalagang hiyas." },
+    { word: "Tumunog", definition: "Aksyon ng pagtunog o pagiging malupit", sentence: "Ang singsing ay tumunog." },
+    { word: "Silya", definition: "Gamit para sa pag-upo", sentence: "Ginagamit ang silya para sa pag-upo." },
+    { word: "Bakal", definition: "Matatag na metal na ginagamit sa mga gamit", sentence: "Ang bakal ay matatag." },
+    { word: "Kalye", definition: "Lugar para sa paglalakbay ng sasakyan", sentence: "Ang kalye ay malinis." },
+    { word: "Opisina", definition: "Lugar para sa pagsasalita o pagsasanay", sentence: "Ginagamit ang opisina para sa trabaho." },
+    { word: "Paglalakbay", definition: "Aksyon ng paglalakbay o paghahatid sa ibang lugar", sentence: "Gusto ko maglakbay sa ibang bansa." },
+    { word: "Madapa", definition: "Aksyon ng pagdapa o pagdala sa daan", sentence: "Ang tao ay madapa sa daan." },
+    { word: "Bulaklak", definition: "Magandang halaman na may bunga o kwento", sentence: "Ang bulaklak ay maganda." },
+    { word: "Umaasa", definition: "Aksyon ng pag-asa o pagpapakita ng pagtanggap", sentence: "Ang pag-asa ay mahalaga sa buhay." },
+    { word: "Pag-asa", definition: "Emosyong nagpapakita ng pagtanggap o pag-iral", sentence: "Ang pag-asa ay mahalaga sa buhay." },
+    { word: "Lugar", definition: "Naglalapit na lugar o lokasyon", sentence: "Ang lugar ay mahusay." },
+    { word: "Saan", definition: "Pangwakas na nagpapakita ng lugar", sentence: "Saan ka pupunta?" },
+    { word: "Mabuhay", definition: "Nagpapakita ng pagpapaligay o pagpapalakas", sentence: "Mabuhay ang Pilipinas!" },
+    { word: "Pagkatapos", definition: "Pangwakas na nagpapakita ng pagtatapos", sentence: "Pagkatapos ng trabaho, gustong-gusto ko magpahinga." },
+    { word: "Tao", definition: "Hayop na may pag-iisip at pagpapakita", sentence: "Ang tao ay may mga damdamin." },
+    { word: "Lalaking Tao", definition: "Tao na lalaki", sentence: "Ang lalaking tao ay may mga damdamin." },
+    { word: "Lalaki", definition: "Tao na lalaki", sentence: "Ang lalaki ay may mga damdamin." },
+    { word: "Dumating", definition: "Aksyon ng pagdating o paghahatid", sentence: "Ang tao ay dumating ngayong umaga." },
+    { word: "Mabuti", definition: "Nagpapakita ng tumpak na tumpak o katuparan", sentence: "Ang bagay ay mabuti." },
+    { word: "Pangalan", definition: "Pangalan o tawag ng tao", sentence: "Ang pangalan ko ay Juan." },
+    { word: "Napaka", definition: "Pangwakas na nagpapakita ng malaking halaga", sentence: "Ang bagay ay napaka mahal." },
+    { word: "Sobra", definition: "Nagpapakita ng malaking halaga o sobrang kailangan", sentence: "Ang bagay ay sobra sa kailangan." },
+    { word: "Pagod", definition: "Nagpapakita ng malaking kagipitan o pagtitingin", sentence: "Nakaramdam ng pagod siya matapos ang trabaho." },
+    { word: "Gusto", definition: "Nagpapakita ng kagustuhan o pagpapahalaga", sentence: "Gusto ko lang magpahinga." },
+    { word: "Lang", definition: "Pangwakas na nagpapakita ng limitasyon", sentence: "Gusto ko lang magpahinga." }
 ];
 
 // Bot phrases
 const botPhrases = {
     welcome: [
+        "Kaya mo to!",
         "Tara na!",
         "Let's go!",
         "Simulan natin!",
         "Game na!",
-        "Sali na!",
+        "g",
+        "g"
     ],
     correct: [
         "Ang galing!",
@@ -131,6 +240,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+function resetGameState() {
+    usedWords = []; // Reset used words for a new session
+    score = 0; // Reset score
+    round = 0; // Reset round
+    reshuffleUsed = false; // Reset reshuffle usage
+    attempts = 0; // Reset attempts
+}
+
 
 // Function to scramble a word
 function scrambleWord(word) {
@@ -144,6 +261,7 @@ function scrambleWord(word) {
 
 // Function to start the game
 function startGame() {
+    resetGameState(); // Reset the game state for a new session
     document.getElementById('startGame').classList.add('hidden'); // Hide the start button
     document.getElementById('game').classList.remove('hidden'); // Show the game container
     document.getElementById('nextWord').classList.add('hidden'); // Hide the next button initially
@@ -210,32 +328,28 @@ function revealSentence() {
     document.getElementById('submitGuess').style.display = 'none'; // Hide the submit button
 }
 
+
 // Function to proceed to the next round
 function nextRound() {
     round++;
+    reshuffleUsed = false; // Reset reshuffle usage for the new round
+
+    // Update the progress counter
+    document.getElementById('progress-counter').textContent = `${round}/${maxRounds}`;
+
     if (round > maxRounds) {
         // Redirect to results page
         window.location.href = `results.html?score=${score}`;
         return;
     }
 
-    // Filter words based on difficulty level
-    const filteredWords = words.filter(word => {
-        if (difficultyLevel === 1) return word.word.length <= 5; // Easy: 5 letters or less
-        if (difficultyLevel === 2) return word.word.length > 5 && word.word.length <= 7; // Medium: 6-7 letters
-        if (difficultyLevel === 3) return word.word.length > 7; // Hard: 8+ letters
-    });
+    // Pick a random word from the words list
+    const randomIndex = Math.floor(Math.random() * words.length);
+    currentWord = words[randomIndex].word.toLowerCase();
+    currentDefinition = words[randomIndex].definition;
+    currentSentence = words[randomIndex].sentence;
 
-    if (filteredWords.length === 0) {
-        alert("No words available for the selected difficulty. Please adjust the difficulty level.");
-        return;
-    }
-
-    // Pick a random word from the filtered list
-    const randomIndex = Math.floor(Math.random() * filteredWords.length);
-    currentWord = filteredWords[randomIndex].word.toLowerCase();
-    currentDefinition = filteredWords[randomIndex].definition;
-    currentSentence = filteredWords[randomIndex].sentence;
+    usedWords.push(currentWord); // Add the word to the usedWords array
 
     scrambledWord = scrambleWord(currentWord);
 
@@ -253,17 +367,25 @@ function nextRound() {
     attempts = 0; // Reset attempts for the new round
 }
 
-// Function to reshuffle the word
+/// Function to reshuffle the word
 function reshuffleWord() {
+    if (reshuffleUsed) {
+        alert("You can only reshuffle once per word!");
+        return;
+    }
     scrambledWord = scrambleWord(currentWord);
     document.getElementById('scrambledWord').innerText = scrambledWord;
+    reshuffleUsed = true; // Mark reshuffle as used
 }
-
 // Function to show a hint
 function showHint() {
     const hint = currentDefinition;
     document.getElementById('result').innerText = `Hint: ${hint}`;
 }
+
+
+console.log("Used Words:", usedWords);
+console.log("Filtered Words:", filteredWords);
 
 // Initialize the game
 document.getElementById('startGame').classList.remove('hidden'); // Show the start button initially

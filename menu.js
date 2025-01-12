@@ -3,8 +3,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const saveBotButton = document.getElementById('save-bot');
     const bot = document.getElementById('bot');
     const botNameDisplay = document.getElementById('bot-name-display');
+    const speechBubble = document.getElementById('speech-bubble');
 
     let selectedAvatar = localStorage.getItem('selectedAvatar') || 'pedro';
+
+    // Bot phrases to cycle through
+    const botPhrases = [
+        "Kamusta!",
+        "Kamusta kana?",
+        "Hello!",
+        "Tara laro!",
+        "r u g",
+        "Welcome sa FiLaro!",
+        "Let's play!",
+        "Ready ka na ba?",
+        "Taraaa",
+        "Game na!",
+        "I miss you",
+        "Hi!",
+    ];
+
+    // Function to make the bot say something
+    function botSay() {
+        if (speechBubble) {
+            const randomPhrase = botPhrases[Math.floor(Math.random() * botPhrases.length)];
+            speechBubble.textContent = randomPhrase;
+            speechBubble.style.display = 'block';
+            setTimeout(() => {
+                speechBubble.style.display = 'none';
+            }, 3000); // Hide the bubble after 3 seconds
+        }
+    }
 
     // Update bot display function
     function updateBotDisplay() {
@@ -16,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initial bot display update
     updateBotDisplay();
+
+    // Start the bot's speech interval
+    setInterval(botSay, 5000); // Say something every 5 seconds
 
     if (avatarCards.length > 0) {
         // Update selected avatar visual

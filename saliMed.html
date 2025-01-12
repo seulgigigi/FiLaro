@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaliScramble</title>
+    <link rel="icon" href="icons/ss500.png" sizes="500x500" type="image/png">
+    <link rel="stylesheet" href="saliScramble.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="icons/ss500.png" alt="saliScramble Logo" class="logo">
+        </div>
+        <h1>Expert Mode</h1>
+    </header>
+
+      <!-- Bot and Speech Bubble -->
+      <div id="bot">
+        <div id="speech-bubble"></div>
+    </div>
+
+    <!-- Game Container -->
+    <div class="container">
+          <!-- Progress Counter -->
+        <p id="progress-counter">1/10</p>
+        <button id="startGame">Start</button>
+        <button id="instructionButton">Instructions</button>
+        
+        <div id="game" class="hidden">
+            
+            <p id="definition"></p>
+            <p id="scrambledWord"></p>
+            <p id="sentence"></p>
+            <input type="text" id="userGuess" placeholder="..." autocomplete="off">
+            <button id="submitGuess">Submit</button>
+            <button id="hintButton" class="hint-button">Hint</button>
+            <button id="reshuffleButton" class="hint-button">Reshuffle</button>
+            <div id="result"></div>
+        </div>
+        <button id="nextWord" class="hidden">Next</button>
+    </div>
+
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Instructions</h2>
+            <p>1. 10 words.</p>
+            <p>2. Unscramble the word.</p>
+            <p>3. You have 2 attempts to guess the correct word.</p>
+            <p>4. Use the hint button if you need help.</p>
+            <p>5. Click 'Reshuffle' to reshuffle the word.</p>
+        </div>
+    </div>
+
+    <!-- Back to Main Menu -->
+    <a href="index.html" class="back-button">Main Menu</a>
+
+    <script src="saliMed.js"></script>
+</body>
+</html>

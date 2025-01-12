@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results - SaliScramble</title>
-    <link rel="stylesheet" href="saliScramble.css">
-    <link rel="icon" href="icons/ss500.png" sizes="500x500" type="image/png">
+    <title>Results - WikaBlanks</title>
+    <link rel="stylesheet" href="saliScramble.css"> <!-- Use the same CSS file as SaliScramble -->
+    <link rel="icon" href="icons/wb500.png" sizes="500x500" type="image/png">
     <!-- Load the confetti library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="icons/ss500.png" alt="saliScramble Logo" class="logo">
+            <img src="icons/wb500.png" alt="WikaBlanks Logo" class="logo">
         </div>
         <h1>Results</h1>
     </header>
@@ -29,6 +29,7 @@
             <a href="index.html" class="back-button">Main Menu</a>
         </div>
     </main>
+
 
     <script>
         // Get the score from the URL
@@ -66,7 +67,7 @@
 
         // Play Again button
         document.getElementById('playAgain').addEventListener('click', () => {
-            window.location.href = 'difficulty.html';
+            window.location.href = 'wikaBlanks.html'; // Redirect to WikaBlanks game page
         });
     </script>
 </body>
