@@ -143,7 +143,6 @@ const words = [
     { word: "Mabuhay", definition: "Nagpapakita ng pagpapaligay o pagpapalakas", sentence: "Mabuhay ang Pilipinas!" },
     { word: "Pagkatapos", definition: "Pangwakas na nagpapakita ng pagtatapos", sentence: "Pagkatapos ng trabaho, gustong-gusto ko magpahinga." },
     { word: "Tao", definition: "Hayop na may pag-iisip at pagpapakita", sentence: "Ang tao ay may mga damdamin." },
-    { word: "Lalaking Tao", definition: "Tao na lalaki", sentence: "Ang lalaking tao ay may mga damdamin." },
     { word: "Lalaki", definition: "Tao na lalaki", sentence: "Ang lalaki ay may mga damdamin." },
     { word: "Dumating", definition: "Aksyon ng pagdating o paghahatid", sentence: "Ang tao ay dumating ngayong umaga." },
     { word: "Mabuti", definition: "Nagpapakita ng tumpak na tumpak o katuparan", sentence: "Ang bagay ay mabuti." },
