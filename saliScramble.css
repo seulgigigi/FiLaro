@@ -14,6 +14,37 @@ html, body {
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
+/* Enlarged Bot State */
+#bot.enlarged {
+    transform: scale(1.5); /* Increase the size of the bot */
+    transition: transform 0.3s ease; /* Smooth transition */
+    z-index: 1000; /* Ensure the bot is on top */
+}
+
+/* Speech Bubble for Instructions */
+#speech-bubble.instructions {
+    left: 30px;
+    width: 300px; /* Wider bubble for instructions */
+    padding: 20px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#message {
+    display: none;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ffe6e6;
+    border: 1px solid #ff9999;
+    border-radius: 5px;
+    text-align: center;
+}
+
 /* Ensure all elements fit within the viewport */
 body {
     background: linear-gradient(45deg, #d7c3ff, #ffece1, #ffdada, #e4d8fc); /* Kahoot-like colors */
@@ -459,8 +490,20 @@ footer {
 /* Responsive Styles */
 @media (max-width: 768px) {
     .container {
+        size: 80%;
         width: 95%;
     }
+    /* Speech Bubble for Instructions */
+#speech-bubble.instructions {
+    left: 1px;
+    width: 200px; /* Wider bubble for instructions */
+    padding: 20px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
     #speech-bubble {
         position: absolute;
@@ -485,5 +528,52 @@ footer {
         height: 95px;
         background-size: cover;
         z-index: 1000; /* Ensure it's above other elements */
+    }
+
+
+    /* Adjust container size and padding */
+    .container {
+        margin-top: 20px; /* Reduce top margin */
+        padding: 15px; /* Reduce padding */
+        width: 95%; /* Increase width for better fit */
+    }
+
+    /* Reduce font sizes for better readability */
+    #roundDisplay {
+        font-size: 16px; /* Smaller font size */
+        margin-top: -50px; /* Adjust margin */
+    }
+
+    #definition {
+        font-size: 1.5em; /* Smaller font size */
+        padding: 8px; /* Reduce padding */
+    }
+
+    #scrambledWord {
+        font-size: 2em; /* Smaller font size */
+        letter-spacing: 0.2em; /* Reduce letter spacing */
+        padding: 8px; /* Reduce padding */
+    }
+
+    #sentence {
+        font-size: 1em; /* Smaller font size */
+        margin: 15px 0; /* Reduce margin */
+    }
+
+    /* Adjust input field size */
+    input[type="text"] {
+        font-size: 14px; /* Smaller font size */
+        padding: 10px; /* Reduce padding */
+        max-width: 90%; /* Increase width for better fit */
+    }
+
+    /* Adjust card styles */
+    .card {
+        padding: 15px; /* Reduce padding */
+    }
+
+    /* Adjust game container margin */
+    #game {
+        margin-top: 80px; /* Reduce top margin */
     }
 }

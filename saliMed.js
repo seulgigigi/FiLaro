@@ -151,49 +151,146 @@ const words = [
     { word: "NAGBUWAL", definition: "Nabagsak", sentence: "Ang <span class='blank'>_____</span> na puno ay nakakatakot." },
     
 ];
-// Bot phrases
+
 const botPhrases = {
-    welcome: [
-        "Kaya mo to!",
-        "Tara na!",
-        "Let's go!",
-        "Simulan natin!",
-        "Game na!",
-        "g",
-        "g"
-    ],
-    correct: [
-        "Ang galing!",
-        "Galing mo!",
-        "Wow!",
-        "Astig!",
-        "Nice one bro!",
-        "Perfect!",
-        "Sobrang husay!",
-        "Panalo!",
-    ],
-    incorrect: [
-        "Sayang!",
-        "Muntik na!",
-        "Subukan ulit!",
-        "Kaya mo yan!",
-        "Malapit na!",
-        "Next time!",
-        "Huwag mawalan ng pag-asa!",
-    ],
+    pedro: {
+        welcome: [
+            "Hello!",
+            "Kamusta!",
+            "Let's go!",
+            "Hi!",
+            "Good day!",
+        ],
+        correct: [
+            "Good job!",
+            "Well done!",
+            "Nice one!",
+            "You got it!",
+            "Perfect!",
+        ],
+        incorrect: [
+            "Try again!",
+            "Almost there!",
+            "Don't give up!",
+            "You can do it!",
+            "Next time!",
+        ],
+    },
+    Jose: {
+        welcome: [
+            "Kaya mo to!",
+            "Tara na!",
+            "Let's go!",
+            "Simulan natin!",
+            "Game na!",
+            "G!",
+        ],
+        correct: [
+            "Ang galing!",
+            "Galing mo!",
+            "Wow!",
+            "Astig!",
+            "Nice one bro!",
+            "Perfect!",
+            "Sobrang husay!",
+            "Panalo!",
+        ],
+        incorrect: [
+            "Sayang!",
+            "Muntik na!",
+            "Subukan ulit!",
+            "Kaya mo yan!",
+            "Malapit na!",
+            "Next time!",
+            "Huwag mawalan ng pag-asa!",
+        ],
+    },
+    King: {
+        welcome: [
+            "Focus lang!",
+            "Let's win this!",
+            "Aim high!",
+            "Push mo yan!",
+            "Go for the win!",
+        ],
+        correct: [
+            "You're unstoppable!",
+            "High score incoming!",
+            "Perfect!",
+            "You're a champion!",
+            "Keep winning!",
+        ],
+        incorrect: [
+            "Stay focused!",
+            "Don't give up!",
+            "You can do better!",
+            "Push harder!",
+            "Next round!",
+        ],
+    },
+    maria: {
+        welcome: [
+            "Kamusta...",
+            "Hello...",
+            "Let's play...",
+            "Game on...",
+            "Hi...",
+        ],
+        correct: [
+            "Good job...",
+            "Well done...",
+            "Nice...",
+            "You got it...",
+            "Perfect...",
+        ],
+        incorrect: [
+            "Try again...",
+            "Almost...",
+            "Don't give up...",
+            "You can do it...",
+            "Next time...",
+        ],
+    },
+    norbert: {
+        welcome: [
+            "Stay calm.",
+            "Let's begin.",
+            "Keep it steady.",
+            "No rush.",
+            "Stay focused.",
+        ],
+        correct: [
+            "Well done.",
+            "You got this.",
+            "Perfect.",
+            "Excellent.",
+            "Keep it up.",
+        ],
+        incorrect: [
+            "Stay calm.",
+            "Try again.",
+            "No rush.",
+            "You can do it.",
+            "Next time.",
+        ],
+    },
 };
 
-// Function to make the bot say something
 function botSay(phraseType) {
-    const phrases = botPhrases[phraseType];
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-    const speechBubble = document.getElementById('speech-bubble');
-    if (speechBubble) {
-        speechBubble.textContent = randomPhrase;
-        speechBubble.style.display = 'block';
-        setTimeout(() => {
-            speechBubble.style.display = 'none';
-        }, 3000); // Hide the bubble after 3 seconds
+    const selectedAvatar = localStorage.getItem('selectedAvatar') || 'pedro'; // Default to 'pedro' if no avatar is selected
+    const phrases = botPhrases[selectedAvatar][phraseType]; // Get the phrases for the selected bot and phrase type
+
+    if (phrases) {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        const speechBubble = document.getElementById('speech-bubble');
+
+        if (speechBubble) {
+            speechBubble.textContent = randomPhrase;
+            speechBubble.style.display = 'block';
+            setTimeout(() => {
+                speechBubble.style.display = 'none';
+            }, 3000); // Hide the bubble after 3 seconds
+        }
     }
 }
 
@@ -208,25 +305,37 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Bot image path:", `images/bot/${savedAvatar}.png`);
     }
 
-    // Modal functionality
-    const modal = document.getElementById('instructionsModal');
-    const instructionBtn = document.getElementById('instructionButton');
-    const closeBtn = document.querySelector('.close');
+// Function to show instructions using the bot
+function showInstructions() {
+    const bot = document.getElementById('bot');
+    const speechBubble = document.getElementById('speech-bubble');
 
-    instructionBtn.addEventListener('click', () => {
-        modal.style.display = 'block';
-    });
+    if (bot && speechBubble) {
+        // Enlarge the bot
+        bot.classList.add('enlarged');
+        speechBubble.classList.add('instructions');
 
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+        // Display the instructions in the speech bubble
+        speechBubble.innerHTML = `
+            <h3>Instructions</h3>
+            <p>1. 10 words.</p>
+            <p>2. Unscramble the word.</p>
+            <p>3. You have 2 attempts to guess the correct word.</p>
+            <p>4. Use the hint button if you need help.</p>
+            <p>5. Click 'Reshuffle' to reshuffle the word.</p>
+        `;
+        speechBubble.style.display = 'block';
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
+        // Hide the instructions after 5 seconds
+        setTimeout(() => {
+            bot.classList.remove('enlarged');
+            speechBubble.classList.remove('instructions');
+            speechBubble.style.display = 'none';
+        }, 5000); // Hide after 5 seconds
+    }
+}
+// Event listener for the instruction button
+document.getElementById('instructionButton').addEventListener('click', showInstructions);
     // Game buttons
     document.getElementById('startGame').addEventListener('click', startGame);
     document.getElementById('submitGuess').addEventListener('click', checkGuess);
@@ -363,16 +472,35 @@ function nextRound() {
     attempts = 0; // Reset attempts for the new round
 }
 
-/// Function to reshuffle the word
 function reshuffleWord() {
     if (reshuffleUsed) {
-        alert("You can only reshuffle once per word!");
+        // Display the message in the game UI instead of using alert()
+        const messageElement = document.getElementById('message');
+        if (messageElement) {
+            messageElement.textContent = "You can only reshuffle once per word!";
+            messageElement.style.display = 'block'; // Show the message
+            setTimeout(() => {
+                messageElement.style.display = 'none'; // Hide the message after 3 seconds
+            }, 3000);
+        }
         return;
     }
+
+    // Reshuffle the word
     scrambledWord = scrambleWord(currentWord);
     document.getElementById('scrambledWord').innerText = scrambledWord;
     reshuffleUsed = true; // Mark reshuffle as used
-}
+
+    // Optionally, display a success message for reshuffling
+    const messageElement = document.getElementById('message');
+    if (messageElement) {
+        messageElement.textContent = "Word reshuffled!";
+        messageElement.style.display = 'block'; // Show the message
+        setTimeout(() => {
+            messageElement.style.display = 'none'; // Hide the message after 3 seconds
+        }, 3000);
+    }
+}   
 // Function to show a hint
 function showHint() {
     const hint = currentDefinition;

@@ -219,40 +219,144 @@ function shuffleArray(array) {
     }
 }
 
-// Bot phrases
 const botPhrases = {
-    correct: [
-        "Ang galing!",
-        "Galing mo!",
-        "Wow!",
-        "Astig!",
-        "Nice one bro!",
-        "Perfect!",
-        "Sobrang husay!",
-        "Panalo!",
-    ],
-    incorrect: [
-        "Sayang!",
-        "Muntik na!",
-        "Subukan ulit!",
-        "Kaya mo yan!",
-        "Malapit na!",
-        "Next time!",
-        "Huwag mawalan ng pag-asa!",
-    ],
+    pedro: {
+        welcome: [
+            "Hello!",
+            "Kamusta!",
+            "Let's go!",
+            "Hi!",
+            "Good day!",
+        ],
+        correct: [
+            "Good job!",
+            "Well done!",
+            "Nice one!",
+            "You got it!",
+            "Perfect!",
+        ],
+        incorrect: [
+            "Try again!",
+            "Almost there!",
+            "Don't give up!",
+            "You can do it!",
+            "Next time!",
+        ],
+    },
+    Jose: {
+        welcome: [
+            "Kaya mo to!",
+            "Tara na!",
+            "Let's go!",
+            "Simulan natin!",
+            "Game na!",
+            "G!",
+        ],
+        correct: [
+            "Ang galing!",
+            "Galing mo!",
+            "Wow!",
+            "Astig!",
+            "Nice one bro!",
+            "Perfect!",
+            "Sobrang husay!",
+            "Panalo!",
+        ],
+        incorrect: [
+            "Sayang!",
+            "Muntik na!",
+            "Subukan ulit!",
+            "Kaya mo yan!",
+            "Malapit na!",
+            "Next time!",
+            "Huwag mawalan ng pag-asa!",
+        ],
+    },
+    King: {
+        welcome: [
+            "Focus lang!",
+            "Let's win this!",
+            "Aim high!",
+            "Push mo yan!",
+            "Go for the win!",
+        ],
+        correct: [
+            "You're unstoppable!",
+            "High score incoming!",
+            "Perfect!",
+            "You're a champion!",
+            "Keep winning!",
+        ],
+        incorrect: [
+            "Stay focused!",
+            "Don't give up!",
+            "You can do better!",
+            "Push harder!",
+            "Next round!",
+        ],
+    },
+    maria: {
+        welcome: [
+            "Kamusta...",
+            "Hello...",
+            "Let's play...",
+            "Game on...",
+            "Hi...",
+        ],
+        correct: [
+            "Good job...",
+            "Well done...",
+            "Nice...",
+            "You got it...",
+            "Perfect...",
+        ],
+        incorrect: [
+            "Try again...",
+            "Almost...",
+            "Don't give up...",
+            "You can do it...",
+            "Next time...",
+        ],
+    },
+    norbert: {
+        welcome: [
+            "Stay calm.",
+            "Let's begin.",
+            "Keep it steady.",
+            "No rush.",
+            "Stay focused.",
+        ],
+        correct: [
+            "Well done.",
+            "You got this.",
+            "Perfect.",
+            "Excellent.",
+            "Keep it up.",
+        ],
+        incorrect: [
+            "Stay calm.",
+            "Try again.",
+            "No rush.",
+            "You can do it.",
+            "Next time.",
+        ],
+    },
 };
-
-// Function to make the bot say something
 function botSay(phraseType) {
-    const phrases = botPhrases[phraseType];
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-    const speechBubble = document.getElementById('speech-bubble');
-    if (speechBubble) {
-        speechBubble.textContent = randomPhrase;
-        speechBubble.style.display = 'block';
-        setTimeout(() => {
-            speechBubble.style.display = 'none';
-        }, 3000); // Hide the bubble after 3 seconds
+    const selectedAvatar = localStorage.getItem('selectedAvatar') || 'pedro'; // Default to 'pedro' if no avatar is selected
+    const phrases = botPhrases[selectedAvatar][phraseType]; // Get the phrases for the selected bot and phrase type
+
+    if (phrases) {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        const speechBubble = document.getElementById('speech-bubble');
+
+        if (speechBubble) {
+            speechBubble.textContent = randomPhrase;
+            speechBubble.style.display = 'block';
+            setTimeout(() => {
+                speechBubble.style.display = 'none';
+            }, 3000); // Hide the bubble after 3 seconds
+        }
     }
 }
 

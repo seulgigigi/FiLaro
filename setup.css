@@ -7,6 +7,46 @@ body, h1, h2, h3, p, a, button, input {
     font-family: 'Inter', sans-serif;
 }
 
+/* Tooltip Styles */
+.avatar-card {
+    position: relative; /* Required for tooltip positioning */
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%; /* Position above the bot card */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    width: 200px;
+    opacity: 0; /* Hidden by default */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1002; /* Ensure it's above other elements */
+}
+
+.avatar-card:hover .tooltip {
+    opacity: 1; /* Show on hover */
+    visibility: visible;
+}
+
+.tooltip h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tooltip p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -102,8 +142,8 @@ main {
 #setup-container {
     padding-bottom: 3em;
     padding-top: 3em;
-    max-width: 1000px;
-    width: 1000px;
+    max-width: 100%;
+    width: 1300px;
     margin: 0 auto;
     padding: 50px;
     text-align: center;
@@ -240,6 +280,9 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    #setup-container {
+        margin-top: -100px;
+    }
     /* Adjust bot size and position for smaller screens */
     #bot {
         width: 80px; /* Smaller size for mobile */
@@ -267,7 +310,7 @@ footer {
 
     /* Adjust setup container padding */
     #setup-container {
-        padding: 10px;
+        padding: 5px;
     }
 
     /* Adjust input and button sizes */
@@ -276,6 +319,9 @@ footer {
     }
 
     #save-bot {
+        margin-bottom: 100px;
         width: 100%;
     }
+
+
 }

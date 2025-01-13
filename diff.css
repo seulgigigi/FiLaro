@@ -262,44 +262,49 @@ main {
 @media (max-width: 768px) {
     .game-modes {
         flex-direction: column;
-        gap: 40px;
+        gap: 10px; /* Reduce gap between game modes */
     }
 
     .game-mode1, .game-mode2 {
-        width: 80%;
-        height: auto;
-        padding: 10px;
-    }
-
-    .image-container {
-        margin-bottom: 10px;
-    }
-
-    .image-container img {
-        width: 60px;
-        height: 60px;
+        width: 80%; /* Make cards take up more width */
+        height: 280px; /* Allow height to adjust automatically */
+        padding: 15px; /* Reduce padding */
     }
 
     .game-mode h2 {
-        font-size: 24px;
+        font-size: 20px; /* Reduce heading font size */
     }
 
     .game-mode p {
-        font-size: 14px;
-        margin-bottom: 10px;
+        font-size: 14px; /* Reduce paragraph font size */
+        margin-bottom: 10px; /* Reduce margin */
+    }
+
+    .laro {
+        padding: 10px; /* Adjust padding for better tap area */
+        font-size: 14px; /* Adjust font size for better readability */
+    }
+
+    header h1 {
+        font-size: 18px; /* Reduce header font size */
+    }
+
+    header p {
+        font-size: 14px; /* Reduce header font size */
+    }
+
+    footer p {
+        font-size: 12px; /* Reduce footer font size */
+    }
+
+    /* Simplify gradient animation */
+    body {
+        background-size: 200% 200%; /* Reduce background size for smoother animation */
     }
 
     .laro {
         padding: 10px;
         font-size: 14px;
-    }
-
-    header h1 {
-        font-size: 20px;
-    }
-
-    header p {
-        font-size: 16px;
     }
 
     footer p {

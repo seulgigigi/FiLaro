@@ -376,28 +376,22 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    header{
+        z-index: 1001;
+    }
     .game-modes {
         flex-direction: column;
-        gap: 40px; /* Reduce gap between game modes */
+        gap: 10px; /* Reduce gap between game modes */
     }
 
     .game-mode1, .game-mode2 {
-        width: 80%; /* Adjust width for better fit on mobile */
-        height: auto; /* Allow height to adjust automatically */
-        padding: 10px; /* Further reduce padding */
-    }
-
-    .image-container {
-        margin-bottom: 10px; /* Reduce margin */
-    }
-
-    .image-container img {
-        width: 60px; /* Adjust image size */
-        height: 60px;
+        width: 80%; /* Make cards take up more width */
+        height: 280px; /* Allow height to adjust automatically */
+        padding: 15px; /* Reduce padding */
     }
 
     .game-mode h2 {
-        font-size: 24px; /* Reduce heading font size */
+        font-size: 20px; /* Reduce heading font size */
     }
 
     .game-mode p {
@@ -411,15 +405,15 @@ footer {
     }
 
     header h1 {
-        font-size: 20px; /* Reduce header font size */
+        font-size: 18px; /* Reduce header font size */
     }
 
     header p {
-        font-size: 16px; /* Reduce header font size */
+        font-size: 14px; /* Reduce header font size */
     }
 
     footer p {
-        font-size: 14px; /* Reduce footer font size */
+        font-size: 12px; /* Reduce footer font size */
     }
 
     #speech-bubble {
@@ -447,5 +441,7 @@ footer {
         background-size: cover;
         z-index: 1000; /* Ensure it's above other elements */
     }
+
+    
     
 }

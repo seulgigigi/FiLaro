@@ -165,3 +165,9 @@ footer {
     font-weight: 500;
     border-radius: 12px 12px 0 0; /* Rounded top corners */
 }
+
+@media (max-width: 768px) {
+    .instructions-container{
+        width: 90%;
+    }
+}
