@@ -152,6 +152,7 @@ const words = [
     
 ];
 
+
 const botPhrases = {
     pedro: {
         welcome: [
@@ -294,6 +295,8 @@ function botSay(phraseType) {
     }
 }
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Load the saved bot avatar from localStorage
     const savedAvatar = localStorage.getItem('selectedAvatar') || 'pedro'; // Default to 'pedro' if no avatar is saved
@@ -319,10 +322,16 @@ function showInstructions() {
         speechBubble.innerHTML = `
             <h3>Instructions</h3>
             <p>1. 10 words.</p>
-            <p>2. Unscramble the word.</p>
+            <p>2. Unscramble the word displayed in the boxes.</p>
             <p>3. You have 2 attempts to guess the correct word.</p>
             <p>4. Use the hint button if you need help.</p>
             <p>5. Click 'Reshuffle' to reshuffle the word.</p>
+            <p>6. Color feedback:</p>
+            <ul>
+                <li><span style="color: green;">Green</span>: Correct letter in the right position.</li>
+                <li><span style="color: red;">Red</span>: Correct letter in the wrong position.</li>
+                <li><span style="color: gray;">Gray</span>: Incorrect letter.</li>
+            </ul>
         `;
         speechBubble.style.display = 'block';
 
@@ -334,8 +343,10 @@ function showInstructions() {
         }, 5000); // Hide after 5 seconds
     }
 }
+
 // Event listener for the instruction button
 document.getElementById('instructionButton').addEventListener('click', showInstructions);
+
     // Game buttons
     document.getElementById('startGame').addEventListener('click', startGame);
     document.getElementById('submitGuess').addEventListener('click', checkGuess);
@@ -388,6 +399,7 @@ function resetGame() {
 }
 
 // Function to check the user's guess
+// Function to check the user's guess
 function checkGuess() {
     const userGuess = document.getElementById('userGuess').value.trim().toLowerCase();
 
@@ -405,6 +417,36 @@ function checkGuess() {
         botSay('correct'); // Bot says a congratulatory phrase
         score++; // Increment score for correct guess
         return;
+    }
+
+    // Get the scrambled word container
+    const scrambledWordContainer = document.getElementById('scrambledWord');
+    const boxes = scrambledWordContainer.querySelectorAll('.wordle-box');
+
+    // Reset all boxes to default color
+    boxes.forEach(box => {
+        box.style.backgroundColor = '#fff'; // Reset to white
+        box.style.color = '#000'; // Reset text color
+    });
+
+    // Check each letter in the user's guess
+    for (let i = 0; i < userGuess.length; i++) {
+        const guessedLetter = userGuess[i];
+        const correctLetter = currentWord[i];
+
+        if (guessedLetter === correctLetter) {
+            // Letter is in the correct position (green)
+            boxes[i].style.backgroundColor = '#4caf50'; // Green
+            boxes[i].style.color = '#fff'; // White text
+        } else if (currentWord.includes(guessedLetter)) {
+            // Letter is correct but in the wrong position (red)
+            boxes[i].style.backgroundColor = '#ff3131'; // Red
+            boxes[i].style.color = '#fff'; // White text
+        } else {
+            // Letter is not in the word (gray)
+            boxes[i].style.backgroundColor = '#ccc'; // Gray
+            boxes[i].style.color = '#000'; // Black text
+        }
     }
 
     if (attempts >= maxAttempts) {
@@ -434,7 +476,7 @@ function revealSentence() {
 }
 
 
-// Function to proceed to the next round
+// Modify the nextRound function to include the Wordle boxes
 function nextRound() {
     round++;
     reshuffleUsed = false; // Reset reshuffle usage for the new round
@@ -458,9 +500,19 @@ function nextRound() {
 
     scrambledWord = scrambleWord(currentWord);
 
+    // Generate Wordle-style boxes for the scrambled word
+    const scrambledWordContainer = document.getElementById('scrambledWord');
+    scrambledWordContainer.innerHTML = ''; // Clear previous boxes
+
+    for (let i = 0; i < scrambledWord.length; i++) {
+        const box = document.createElement('div');
+        box.classList.add('wordle-box');
+        box.textContent = scrambledWord[i].toUpperCase();
+        scrambledWordContainer.appendChild(box);
+    }
+
     // Update the UI
     document.getElementById('sentence').innerHTML = '';
-    document.getElementById('scrambledWord').innerText = scrambledWord;
     document.getElementById('definition').innerText = '';
     document.getElementById('game').classList.remove('hidden');
     document.getElementById('result').innerText = '';

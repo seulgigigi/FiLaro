@@ -163,7 +163,7 @@ header p {
 
 /* Game Elements */
 #game {
-    margin-top: 100px; /* Add margin to avoid overlapping with the header */
+    margin-top: 20px; /* Add margin to avoid overlapping with the header */
 }
 
 #roundDisplay {
@@ -191,28 +191,45 @@ header p {
     opacity: 1; /* Fully visible */
 }
 
-#scrambledWord {
-    font-size: 3em;
-    font-weight: bold;
-    background-color: #fff; /* White background */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #383838; /* Logo's dark gray color */
-    padding: 10px;
-    margin: 10px auto; /* Reduced margin */
-    width: 100%; /* Adjust the width as needed */
+/* Add this to your existing CSS file */
+
+/* Scrambled Word with Wordle-style boxes */
+.scrambled-word-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.scrambled-word-container .wordle-box {
+    width: 75px;
+    height: 75px;
+    border: 2px solid #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for colors */
 }
 
+/* Ensure the instruction button is closer to the scrambled word */
+#instructionButton {
+    margin-bottom: 10px; /* Add some space below the instruction button */
+}
+
+/* Ensure the instruction button is closer to the scrambled word */
+#instructionButton {
+    margin-bottom: 10px; /* Add some space below the instruction button */
+}
 #sentence {
     font-size: 1.2em; /* Adjust font size for readability */
     line-height: 1.6; /* Improve line spacing */
     color: #383838; /* Logo's dark gray color */
-    margin: 20px 0;
+   
     text-align: center; /* Center the sentence */
 }
 

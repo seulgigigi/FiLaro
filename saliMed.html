@@ -15,6 +15,7 @@
         <h1>Expert Mode</h1>
     </header>
     <a href="index.html" class="back-button">Main Menu</a>
+
     <!-- Bot and Speech Bubble -->
     <div id="bot">
         <div id="speech-bubble"></div>
@@ -27,11 +28,14 @@
         <button id="startGame">Start</button>
         <button id="instructionButton">Instructions</button>
         
+        <!-- Scrambled Word with Wordle-style boxes -->
+        <div id="scrambledWord" class="scrambled-word-container"></div>
+
         <div id="game" class="hidden">
             <div id="message" style="display: none; color: red; font-weight: bold; margin-top: 10px;"></div>
             <p id="definition"></p>
-            <p id="scrambledWord"></p>
             <p id="sentence"></p>
+            
             <input type="text" id="userGuess" placeholder="..." autocomplete="off">
             <button id="submitGuess">Submit</button>
             <button id="hintButton" class="hint-button">Hint</button>
@@ -40,9 +44,6 @@
         </div>
         <button id="nextWord" class="hidden">Next</button>
     </div>
-
-    <!-- Back to Main Menu -->
-    
 
     <script src="saliMed.js"></script>
 </body>
