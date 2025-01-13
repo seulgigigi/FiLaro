@@ -36,7 +36,7 @@
             <p id="definition"></p>
             <p id="sentence"></p>
             
-            <input type="text" id="userGuess" placeholder="..." autocomplete="off">
+            <input type="text" id="userGuess" placeholder="..." autocomplete="off" oninput="this.value = this.value.toUpperCase()">
             <button id="submitGuess">Submit</button>
             <button id="hintButton" class="hint-button">Hint</button>
             <button id="reshuffleButton" class="hint-button">Reshuffle</button>
@@ -44,7 +44,7 @@
         </div>
         <button id="nextWord" class="hidden">Next</button>
     </div>
-
+    
     <script src="saliMed.js"></script>
 </body>
 </html>

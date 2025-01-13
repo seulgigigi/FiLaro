@@ -386,53 +386,36 @@ function startGame() {
     nextRound(); // Start the first round
 }
 
-// Function to update the difficulty level
-function updateDifficulty() {
-    difficultyLevel = parseInt(document.getElementById('difficultySlider').value);
-    document.getElementById('difficultyValue').textContent = difficultyLevel;
-    resetGame(); // Reset the game with the new difficulty
-}
-
 // Function to reset the game
 function resetGame() {
     attempts = 0;
     nextRound();
 }
 
-// Function to check the user's guess
-// Function to check the user's guess
-function checkGuess() {
-    const userGuess = document.getElementById('userGuess').value.trim().toLowerCase();
+// Add this to your existing JavaScript file
 
-    if (userGuess.length !== currentWord.length) {
-        alert(`Please guess a ${currentWord.length}-letter word!`);
-        return;
-    }
-
-    attempts++;
-
-    if (userGuess === currentWord) {
-        document.getElementById('result').innerText = 'Correct! 🎉';
-        revealSentence();
-        document.getElementById('nextWord').classList.remove('hidden'); // Show the next button
-        botSay('correct'); // Bot says a congratulatory phrase
-        score++; // Increment score for correct guess
-        return;
-    }
-
-    // Get the scrambled word container
+// Function to update the Wordle-style boxes based on the user's input
+function updateWordleBoxes(userInput) {
     const scrambledWordContainer = document.getElementById('scrambledWord');
     const boxes = scrambledWordContainer.querySelectorAll('.wordle-box');
 
-    // Reset all boxes to default color
+    // Clear all boxes
     boxes.forEach(box => {
+        box.textContent = '';
         box.style.backgroundColor = '#fff'; // Reset to white
         box.style.color = '#000'; // Reset text color
     });
 
-    // Check each letter in the user's guess
-    for (let i = 0; i < userGuess.length; i++) {
-        const guessedLetter = userGuess[i];
+    // Update the boxes with the user's input
+    for (let i = 0; i < userInput.length; i++) {
+        if (boxes[i]) {
+            boxes[i].textContent = userInput[i].toUpperCase();
+        }
+    }
+
+    // Apply color feedback dynamically
+    for (let i = 0; i < userInput.length; i++) {
+        const guessedLetter = userInput[i];
         const correctLetter = currentWord[i];
 
         if (guessedLetter === correctLetter) {
@@ -449,13 +432,64 @@ function checkGuess() {
             boxes[i].style.color = '#000'; // Black text
         }
     }
+}
+
+// Function to check the user's guess
+// Function to check the user's guess
+function checkGuess() {
+    const userGuess = document.getElementById('userGuess').value.trim().toLowerCase();
+
+    if (userGuess.length !== currentWord.length) {
+        alert(`Please guess a ${currentWord.length}-letter word!`);
+        return;
+    }
+
+    attempts++;
+
+    // Create a new line of boxes for the user's input
+    const guessContainer = document.createElement('div');
+    guessContainer.classList.add('guess-container'); // Use the same class as the scrambled word
+    document.getElementById('game').insertBefore(guessContainer, document.getElementById('userGuess'));
+
+    // Generate Wordle-style boxes for the user's guess
+    for (let i = 0; i < userGuess.length; i++) {
+        const box = document.createElement('div');
+        box.classList.add('wordle-box');
+        box.textContent = userGuess[i].toUpperCase();
+        guessContainer.appendChild(box);
+
+        // Apply color feedback
+        const correctLetter = currentWord[i];
+        if (userGuess[i] === correctLetter) {
+            // Letter is in the correct position (green)
+            box.style.backgroundColor = '#4caf50'; // Green
+            box.style.color = '#fff'; // White text
+        } else if (currentWord.includes(userGuess[i])) {
+            // Letter is correct but in the wrong position (red)
+            box.style.backgroundColor = '#ff3131'; // Red
+            box.style.color = '#fff'; // White text
+        } else {
+            // Letter is not in the word (gray)
+            box.style.backgroundColor = '#ccc'; // Gray
+            box.style.color = '#000'; // Black text
+        }
+    }
+
+    if (userGuess === currentWord) {
+        document.getElementById('result').innerText = 'Correct! 🎉';
+        revealSentence(); // Display the unscrambled word in Wordle-style boxes
+        document.getElementById('nextWord').classList.remove('hidden'); // Show the next button
+        botSay('correct'); // Bot says a congratulatory phrase
+        score++; // Increment score for correct guess
+        return;
+    }
 
     if (attempts >= maxAttempts) {
         document.getElementById('result').innerHTML = `
             <span style="color: red;">Incorrect! The word was:</span><br>
             <span style="color: green;">${currentWord.toUpperCase()}</span>
         `;
-        revealSentence();
+        revealSentence(); // Display the unscrambled word in Wordle-style boxes
         document.getElementById('nextWord').classList.remove('hidden'); // Show the next button
         botSay('incorrect'); // Bot says an encouraging phrase
         return;
@@ -466,21 +500,35 @@ function checkGuess() {
     botSay('incorrect'); // Bot says an encouraging phrase
 }
 
-// Function to reveal the sentence
+// Function to reveal the sentence and the unscrambled word in Wordle-style boxes
 function revealSentence() {
     const completeSentence = currentSentence.replace("<span class='blank'>_____</span>", `<span class='correct-word'>${currentWord.toUpperCase()}</span>`);
-    document.getElementById('scrambledWord').innerText = currentWord.toUpperCase(); // Display the unscrambled word
     document.getElementById('sentence').innerHTML = completeSentence; // Display the sentence
     document.getElementById('definition').innerText = currentDefinition; // Display the definition
     document.getElementById('userGuess').style.display = 'none'; // Hide the input field
     document.getElementById('submitGuess').style.display = 'none'; // Hide the submit button
+
+    // Display the unscrambled word in Wordle-style boxes
+    const scrambledWordContainer = document.getElementById('scrambledWord');
+    scrambledWordContainer.innerHTML = ''; // Clear previous boxes
+
+    for (let i = 0; i < currentWord.length; i++) {
+        const box = document.createElement('div');
+        box.classList.add('wordle-box');
+        box.textContent = currentWord[i].toUpperCase();
+        box.style.backgroundColor = '#4caf50'; // Green for correct letters
+        box.style.color = '#fff'; // White text
+        scrambledWordContainer.appendChild(box);
+    }
 }
 
-
-// Modify the nextRound function to include the Wordle boxes
 function nextRound() {
     round++;
     reshuffleUsed = false; // Reset reshuffle usage for the new round
+
+    // Clear all generated lines of boxes
+    const guessContainers = document.querySelectorAll('.guess-container');
+    guessContainers.forEach(container => container.remove());
 
     // Update the progress counter
     document.getElementById('progress-counter').textContent = `${round}/${maxRounds}`;
@@ -522,6 +570,9 @@ function nextRound() {
     document.getElementById('submitGuess').style.display = 'inline-block';
     document.getElementById('nextWord').classList.add('hidden'); // Hide the next button
 
+    // Set the maxlength of the input field to the length of the scrambled word
+    document.getElementById('userGuess').maxLength = scrambledWord.length;
+
     attempts = 0; // Reset attempts for the new round
 }
 
@@ -541,7 +592,18 @@ function reshuffleWord() {
 
     // Reshuffle the word
     scrambledWord = scrambleWord(currentWord);
-    document.getElementById('scrambledWord').innerText = scrambledWord;
+
+    // Update the Wordle-style boxes for the reshuffled word
+    const scrambledWordContainer = document.getElementById('scrambledWord');
+    scrambledWordContainer.innerHTML = ''; // Clear previous boxes
+
+    for (let i = 0; i < scrambledWord.length; i++) {
+        const box = document.createElement('div');
+        box.classList.add('wordle-box');
+        box.textContent = scrambledWord[i].toUpperCase();
+        scrambledWordContainer.appendChild(box);
+    }
+
     reshuffleUsed = true; // Mark reshuffle as used
 
     // Optionally, display a success message for reshuffling
@@ -553,7 +615,7 @@ function reshuffleWord() {
             messageElement.style.display = 'none'; // Hide the message after 3 seconds
         }, 3000);
     }
-}   
+}
 // Function to show a hint
 function showHint() {
     const hint = currentDefinition;

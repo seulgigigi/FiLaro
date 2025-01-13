@@ -201,9 +201,18 @@ header p {
     margin: 10px 0;
 }
 
-.scrambled-word-container .wordle-box {
-    width: 75px;
-    height: 75px;
+/* Guess Container (new line of boxes) */
+.guess-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+/* Wordle-style boxes */
+.wordle-box {
+    width: 65px;
+    height: 65px;
     border: 2px solid #ccc;
     display: flex;
     justify-content: center;
