@@ -73,33 +73,31 @@ body {
     }
 }
 
-/* Header Styles */
-/* Header Styles */
 header {
     background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
     backdrop-filter: blur(10px); /* Blur effect */
     display: flex;
     align-items: center;
-    color: #333333; /* White text for contrast */
-    padding: 10px 20px; /* Consistent padding */
+    color: #333333;
+    padding: 10px;
     width: 100%;
-    margin-bottom: 20px; /* Consistent margin */
-    font-family: 'Inter', sans-serif;
-    font-weight: 600; /* Semi-bold for better readability */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-weight: bolder;
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 header h1 {
     margin-right: 10px; /* Space between logo and title */
-    font-size: 24px; /* Consistent font size */
-    font-weight: 700; /* Bold for emphasis */
-    letter-spacing: 0.5px; /* Slight spacing for elegance */
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bolder;
+    transition: color 0.3s ease; /* Smooth transition */
 }
 
 header p {
-    font-size: 18px; /* Consistent font size */
-    font-weight: 500; /* Medium weight for readability */
+    font-size: 18px;
+    transition: color 0.3s ease; /* Smooth transition */
 }
 
 .logo-container {
@@ -108,15 +106,15 @@ header p {
 }
 
 .logo {
-    width: 40px; /* Consistent size */
+    width: 40px; /* Adjust size as needed */
     height: 40px;
-    border-radius: 50%; /* Circular logo */
+    border-radius: 5%; /* Makes the logo circular */
     object-fit: cover; /* Ensures the logo fits the container */
-    transition: transform 0.3s ease; /* Smooth hover effect */
+    transition: transform 0.3s ease; /* Smooth transition */
 }
 
 .logo:hover {
-    transform: scale(1.1); /* Slight zoom on hover */
+    transform: scale(1.1); /* Logo scales up on hover */
 }
 
 /* Main Game Container */
@@ -584,12 +582,37 @@ footer {
         padding: 8px; /* Reduce padding */
     }
 
-    #scrambledWord {
-        font-size: 2em; /* Smaller font size */
-        letter-spacing: 0.2em; /* Reduce letter spacing */
-        padding: 8px; /* Reduce padding */
-    }
+    /* Scrambled Word with Wordle-style boxes */
+.scrambled-word-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px 0;
+}
 
+/* Guess Container (new line of boxes) */
+.guess-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+/* Wordle-style boxes */
+.wordle-box {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for colors */
+}
     #sentence {
         font-size: 1em; /* Smaller font size */
         margin: 15px 0; /* Reduce margin */

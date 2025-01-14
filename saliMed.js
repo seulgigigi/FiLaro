@@ -11,7 +11,6 @@ let reshuffleUsed = false; // Track if reshuffle has been used for the current w
 const maxRounds = 10; // 10 words per session
 let usedWords = []; // Track used words for the current session
 
-// Hardcoded word list for SALITA mode
 const words = [
     
     { word: "PANATA", definition: "Pangako o sumpa", sentence: "Ang <span class='blank'>_____</span> ng mga tao ay hindi madaling makuha." },
@@ -73,7 +72,7 @@ const words = [
     { word: "DAYUKDOK", definition: "Gutom na gutom", sentence: "Ang <span class='blank'>_____</span> ay nararamdaman ng mga taong walang makain." },
     { word: "DI-MASUSUPIL", definition: "Di mapipigil", sentence: "Ang <span class='blank'>_____</span> na damdamin ay mahirap kontrolin." },
     { word: "DINALUHONG", definition: "Sinugod", sentence: "Ang <span class='blank'>_____</span> na hayop ay nakakatakot." },
-    { word: "DOMINUS VOBISCUM", definition: "Sumaiyo ang Panginoon", sentence: "Ang <span class='blank'>_____</span> ay isang makabuluhang pagbati." },
+    { word: "ALIMUOM", definition: "Mainit na singaw ng lupa pagkatapos ng ulan", sentence:"Amoy <span class='blank'>_____</span> matapos bumuhos ang malakas na ulan." },
     { word: "DUMANAK", definition: "Dumaloy", sentence: "Ang <span class='blank'>_____</span> na dugo ay nakakatakot." },
     { word: "DUPIKAL", definition: "Sunod-sunod na tunog ng kampana", sentence: "Ang <span class='blank'>_____</span> ay naririnig tuwing misa." },
     { word: "ENTRESWELO", definition: "Mesanin, isang silid na mas mababa sa pangalawang palapag", sentence: "Ang <span class='blank'>_____</span> ay isang magandang lugar para magpahinga." },
@@ -149,8 +148,22 @@ const words = [
     { word: "NAGBABANTULOT", definition: "Nag-aalinlangan", sentence: "Ang <span class='blank'>_____</span> ay maaaring magdulot ng pagkabahala." },
     { word: "NAGBUNSOD", definition: "Nagtulak", sentence: "Ang <span class='blank'>_____</span> ay mahalaga sa pag-abot ng tagumpay." },
     { word: "NAGBUWAL", definition: "Nabagsak", sentence: "Ang <span class='blank'>_____</span> na puno ay nakakatakot." },
+    { word: "ALINGASNGAS", definition: "Isang usap-usapan o tsismis na mabilis kumalat", sentence: "Ang <span class='blank'>_____</span> tungkol sa kanila ay hindi totoo." },
+    { word: "ALIPATO", definition: "Maliit na piraso ng apoy o baga na lumilipad sa hangin", sentence: "Nagningning ang <span class='blank'>_____</span> mula sa nasusunog na kahoy." },
+    { word: "ALIW-IW", definition: "Mataas na tunog ng dumadaloy na tubig", sentence: "Narinig ko ang <span class='blank'>_____</span> ng batis habang naglalakad." },
+    { word: "BALINTATAW", definition: "Kislap o kinang sa mata; imahinasyon", sentence: "May <span class='blank'>_____</span> ng alaala sa kanyang mata." },
+    { word: "BALINTUNA", definition: "Isang bagay na salungat sa inaasahan o sa karaniwan", sentence: "Napaka <span class='blank'>_____</span> ng kanyang mga sinabi." },
+    { word: "BALUMBON", definition: "Pagkakatupi o pagkakabilog ng isang bagay tulad ng papel", sentence: "Hawak niya ang <span class='blank'>_____</span> ng papel sa kanyang kamay." },
+    { word: "DALITA", definition: "Matinding kahirapan sa buhay", sentence: "Ang kanyang pamilya ay nabuhay sa <span class='blank'>_____</span>." },
+    { word: "GUNAM-GUNAM", definition: "Malalim na pag-iisip o pagbubulay-bulay", sentence: "Madalas siyang mawalan ng oras dahil sa kanyang <span class='blank'>_____</span>." },
+    { word: "IGPAW", definition: "Pag-akyat o pagtawid sa mataas na lugar", sentence: "Kailangan niyang <span class='blank'>_____</span> ang mataas na bakod." },
+    { word: "LUYONG", definition: "Isang uri ng malakas at mapanganib na alon", sentence: "Ang mga mangingisda ay takot sa <span class='blank'>_____</span> ng dagat." },
+    { word: "MALASYA", definition: "Isang uri ng pagkakaron ng masamang hangarin o kahulugan", sentence: "May <span class='blank'>_____</span> ang kanyang mga salita." },
+    { word: "SALINLAHI", definition: "Mga susunod na henerasyon o lahi ng mga tao", sentence: "Ang <span class='blank'>_____</span> ay magmamana ng ating mga kultura at tradisyon." },
+    { word: "TIGIB", definition: "Punong-puno ng isang damdamin o bagay", sentence: "Ang kanyang puso ay <span class='blank'>_____</span> ng kaligayahan sa araw ng kanyang kasal." }
     
 ];
+
 
 
 const botPhrases = {
@@ -433,8 +446,6 @@ function updateWordleBoxes(userInput) {
     }
 }
 
-// Function to check the user's guess
-// Function to check the user's guess
 function checkGuess() {
     const userGuess = document.getElementById('userGuess').value.trim().toLowerCase();
 
@@ -447,7 +458,7 @@ function checkGuess() {
 
     // Create a new line of boxes for the user's input
     const guessContainer = document.createElement('div');
-    guessContainer.classList.add('guess-container'); // Use the same class as the scrambled word
+    guessContainer.classList.add('guess-container');
     document.getElementById('game').insertBefore(guessContainer, document.getElementById('userGuess'));
 
     // Generate Wordle-style boxes for the user's guess
@@ -460,15 +471,12 @@ function checkGuess() {
         // Apply color feedback
         const correctLetter = currentWord[i];
         if (userGuess[i] === correctLetter) {
-            // Letter is in the correct position (green)
             box.style.backgroundColor = '#4caf50'; // Green
             box.style.color = '#fff'; // White text
         } else if (currentWord.includes(userGuess[i])) {
-            // Letter is correct but in the wrong position (red)
             box.style.backgroundColor = '#ff3131'; // Red
             box.style.color = '#fff'; // White text
         } else {
-            // Letter is not in the word (gray)
             box.style.backgroundColor = '#ccc'; // Gray
             box.style.color = '#000'; // Black text
         }

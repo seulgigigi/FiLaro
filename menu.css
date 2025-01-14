@@ -156,31 +156,30 @@ body {
 }
 
 header {
-    display: flex;
-    align-items: center;
     background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
     backdrop-filter: blur(10px); /* Blur effect */
-    color: #333; /* Dark text for contrast */
-    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+    padding: 10px;
     width: 100%;
-    margin-bottom: 20px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 12px 12px; /* Rounded bottom corners */
-    z-index: 1; /* Ensure it's above the background */
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-weight: bolder;
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 header h1 {
     margin-right: 10px; /* Space between logo and title */
-    font-size: 24px; /* Consistent font size */
-    font-weight: 700; /* Bold for emphasis */
-    letter-spacing: 0.5px; /* Slight spacing for elegance */
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bolder;
+    transition: color 0.3s ease; /* Smooth transition */
 }
 
 header p {
-    font-size: 18px; /* Consistent font size */
-    font-weight: 500; /* Medium weight for readability */
+    font-size: 18px;
+    transition: color 0.3s ease; /* Smooth transition */
 }
 
 .logo-container {
@@ -189,17 +188,28 @@ header p {
 }
 
 .logo {
-    width: 40px; /* Consistent size */
+    width: 40px; /* Adjust size as needed */
     height: 40px;
-    border-radius: 50%; /* Circular logo */
+    border-radius: 5%; /* Makes the logo circular */
     object-fit: cover; /* Ensures the logo fits the container */
-    transition: transform 0.3s ease; /* Smooth hover effect */
+    transition: transform 0.3s ease; /* Smooth transition */
 }
 
 .logo:hover {
-    transform: scale(1.1); /* Slight zoom on hover */
+    transform: scale(1.1); /* Logo scales up on hover */
 }
 
+/* Main Game Container */
+.container {
+    padding: auto;
+    margin-top: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    background-color: #d2e3fc;
+}
 main {
     display: flex;
     flex-direction: column;
