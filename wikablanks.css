@@ -227,7 +227,7 @@ main {
 }
 
 #result-text.wrong {
-    color: #ff4d4d; /* Red for wrong answer */
+    color: #6aaa64; /* Red for wrong answer */
 }
 
 /* Correct and Wrong Indicators */
@@ -254,7 +254,7 @@ main {
 }
 
 #next-sentence {
-    background-color: #ff3131; /* Alternate logo color */
+    background-color: #6aaa64; /* Alternate logo color */
     color: #fff;
     border: none;
     padding: 10px 20px;
